@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stephen Marn — Data Engineer · ML / AI</title>
+<meta name="description" content="Stephen Marn — Data Engineer with applied ML/AI. I build production-grade data pipelines: from raw operational documents to tested, queryable warehouses and the dashboards that make them useful.">
+<meta property="og:title" content="Stephen Marn — Data Engineer · ML / AI">
+<meta property="og:description" content="Production-grade data pipelines: raw documents → tested medallion warehouses → interactive dashboards.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://steve27m.github.io/assets/dashboard.png">
+<meta property="og:url" content="https://steve27m.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📊</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f8fb; --card:#ffffff; --text:#16202e; --muted:#5b6b80;
+    --line:#e4e9f0; --accent:#2563eb; --accent-soft:#eaf1ff; --ring:rgba(37,99,235,.18);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; color:var(--text); background:var(--bg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 24px}
+
+  /* header */
+  header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.85);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  .nav{display:flex; align-items:center; justify-content:space-between; height:62px}
+  .brand{font-weight:700; letter-spacing:-.01em}
+  .nav-links{display:flex; gap:22px; align-items:center}
+  .nav-links a{color:var(--muted); font-size:14px; font-weight:500}
+  .nav-links a:hover{color:var(--text); text-decoration:none}
+  @media(max-width:640px){ .nav-links a.hide-sm{display:none} }
+
+  /* hero */
+  .hero{padding:84px 0 64px}
+  .eyebrow{color:var(--accent); font-weight:600; font-size:14px; letter-spacing:.04em; text-transform:uppercase}
+  h1{font-size:clamp(34px,6vw,56px); line-height:1.05; letter-spacing:-.02em; margin:14px 0 0}
+  .hero p.lead{font-size:clamp(17px,2.4vw,21px); color:var(--muted); max-width:640px; margin:20px 0 0}
+  .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:10px;
+    font-weight:600; font-size:15px; border:1px solid var(--line); background:var(--card); color:var(--text)}
+  .btn:hover{text-decoration:none; border-color:var(--accent); color:var(--accent)}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+  .btn.primary:hover{background:#1d4ed8; color:#fff}
+
+  /* sections */
+  section{padding:56px 0; border-top:1px solid var(--line)}
+  .sec-head{font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+  h2{font-size:clamp(24px,4vw,32px); letter-spacing:-.01em; margin:8px 0 0}
+  .sub{color:var(--muted); margin:8px 0 28px}
+
+  /* project cards */
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media(max-width:760px){ .grid{grid-template-columns:1fr} }
+  .card{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card);
+    transition:box-shadow .15s, transform .15s, border-color .15s; display:flex; flex-direction:column}
+  .card:hover{box-shadow:0 12px 30px -12px var(--ring); border-color:#cdd9ea; transform:translateY(-2px)}
+  .card.feature{grid-column:1 / -1}
+  .card.feature .card-body{padding:24px 26px}
+  .thumb{display:block; border-bottom:1px solid var(--line); background:#0a1426}
+  .thumb img{display:block; width:100%; height:auto}
+  .card-body{padding:20px 22px}
+  .card h3{margin:0; font-size:20px; letter-spacing:-.01em}
+  .card .kicker{color:var(--muted); font-size:14px; margin:4px 0 0; font-weight:500}
+  .card p{color:#3a4a5e; margin:14px 0 0}
+  .tags{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 0}
+  .tag{font-size:12px; font-weight:600; color:#33507e; background:var(--accent-soft);
+    border:1px solid #d8e6ff; border-radius:999px; padding:4px 10px}
+  .links{display:flex; flex-wrap:wrap; gap:18px; margin:20px 0 0}
+  .links a{font-weight:600; font-size:15px}
+  .links a .arr{font-weight:700}
+
+  .card.soon{align-items:center; justify-content:center; text-align:center; border-style:dashed;
+    color:var(--muted); min-height:180px; padding:28px}
+  .card.soon strong{color:var(--text)}
+
+  /* skills */
+  .skills{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+  @media(max-width:760px){ .skills{grid-template-columns:1fr} }
+  .skillcol h4{margin:0 0 10px; font-size:15px}
+  .skillcol ul{list-style:none; margin:0; padding:0}
+  .skillcol li{color:#3a4a5e; padding:5px 0; border-bottom:1px dashed var(--line); font-size:15px}
+  .skillcol li:last-child{border-bottom:0}
+
+  /* about */
+  .about p{max-width:720px; color:#3a4a5e; font-size:17px}
+
+  /* contact */
+  .contact-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:24px}
+
+  footer{border-top:1px solid var(--line); padding:30px 0; color:var(--muted); font-size:14px}
+  .footer-row{display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <span class="brand">Stephen&nbsp;Marn</span>
+    <nav class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills" class="hide-sm">Skills</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/Steve27M" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="eyebrow">Data Engineer · ML / AI</div>
+    <h1>I turn messy operational data<br>into systems people trust.</h1>
+    <p class="lead">
+      I build production-grade data pipelines &mdash; from raw operational documents to tested,
+      queryable warehouses and the dashboards that make them useful. Strong on data engineering,
+      with applied machine learning and AI.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="https://github.com/Steve27M" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="mailto:stevemarn27@gmail.com">Email</a>
+      <!-- TODO: add LinkedIn once URL provided:
+      <a class="btn" href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">LinkedIn ↗</a> -->
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head">Selected work</div>
+      <h2>Projects</h2>
+      <p class="sub">Each one is self-contained and reproducible &mdash; clone, run one command, see it work.</p>
+
+      <div class="grid">
+        <!-- FEATURED -->
+        <article class="card feature">
+          <a class="thumb" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener"
+             title="Open the live interactive dashboard">
+            <img src="assets/dashboard.png" alt="Interactive production & pipeline dashboard for the manufacturing ELT project"
+                 loading="lazy" width="1600" height="860">
+          </a>
+          <div class="card-body">
+            <h3>Manufacturing PDF&nbsp;→&nbsp;Warehouse</h3>
+            <p class="kicker">Medallion ELT · Dagster + dbt + DuckDB · Kimball star schema</p>
+            <p>
+              A production-grade ELT pipeline that turns a plant&rsquo;s daily PDF production reports into a
+              tested, queryable analytics warehouse on a bronze / silver / gold medallion with a Kimball
+              star schema &mdash; surfaced in a self-contained, interactive dashboard. Append-only lineage,
+              a quarantine for bad rows, source-freshness &amp; relationship tests, and architecture
+              &ldquo;fitness functions.&rdquo; All data is synthetic and generated from scratch.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">dbt</span><span class="tag">Dagster</span>
+              <span class="tag">DuckDB</span><span class="tag">Kimball / dimensional modeling</span>
+              <span class="tag">Data quality &amp; testing</span><span class="tag">Power BI</span>
+            </div>
+            <div class="links">
+              <a href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/manufacturing-pdf-etl" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/manufacturing-pdf-etl#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PLACEHOLDER -->
+        <article class="card soon">
+          <div>
+            <strong>More on the way</strong><br>
+            Applied ML projects from the MIT Applied Data Science Program &mdash; publishing soon.
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">What I work with</div>
+      <h2>Skills</h2>
+      <p class="sub">Tools I&rsquo;ve used to ship the work above.</p>
+      <div class="skills">
+        <div class="skillcol">
+          <h4>Data Engineering</h4>
+          <ul>
+            <li>dbt · Dagster</li>
+            <li>DuckDB · SQL Server</li>
+            <li>Medallion &amp; Kimball modeling</li>
+            <li>ELT &amp; orchestration</li>
+            <li>Data quality / testing</li>
+            <li>Power BI</li>
+          </ul>
+        </div>
+        <div class="skillcol">
+          <h4>Languages &amp; Tools</h4>
+          <ul>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>pandas</li>
+            <li>Git &amp; GitHub</li>
+            <li>pdfplumber · reportlab</li>
+            <li>Plotly</li>
+          </ul>
+        </div>
+        <div class="skillcol">
+          <h4>ML / AI</h4>
+          <ul>
+            <li>Applied machine learning</li>
+            <li>Supervised &amp; unsupervised</li>
+            <li>Feature engineering</li>
+            <li>Model evaluation</li>
+            <li>scikit-learn</li>
+            <li>MIT Applied Data Science Program</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="sec-head">Background</div>
+      <h2>About</h2>
+      <p>
+        I&rsquo;m a data engineer who likes the unglamorous parts: getting data out of awkward formats,
+        making transformations testable, and building the warehouse layer that analytics and ML actually
+        depend on. My recent work pairs solid engineering practice &mdash; medallion architecture,
+        dimensional modeling, data-quality testing &mdash; with applied machine learning from the
+        MIT Applied Data Science Program. I care about systems that are reproducible, well-tested, and
+        clear enough that the next person can trust and extend them.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head">Get in touch</div>
+      <h2>Contact</h2>
+      <p class="sub">Open to data engineering and ML/AI roles. The fastest way to reach me:</p>
+      <div class="contact-row">
+        <a class="btn primary" href="mailto:stevemarn27@gmail.com">stevemarn27@gmail.com</a>
+        <a class="btn" href="https://github.com/Steve27M" target="_blank" rel="noopener">github.com/Steve27M ↗</a>
+        <!-- TODO: add LinkedIn button here once URL provided -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="yr">2026</span> Stephen Marn</span>
+    <span>Built as a static site on GitHub Pages.</span>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
