@@ -141,6 +141,40 @@
       <p class="sub">Each one is self-contained and reproducible &mdash; clone, run one command, see it work.</p>
 
       <div class="grid">
+        <!-- FEATURED: CFB ANALYTICS -->
+        <article class="card feature">
+          <a class="thumb" href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener"
+             title="Open the live interactive dashboard">
+            <img src="assets/cfb-analytics.png" alt="Projected 2026 college-football win totals from the cfb-analytics pipeline"
+                 loading="lazy" width="1634" height="874">
+          </a>
+          <div class="card-body">
+            <h3>College-Football Analytics &mdash; Polyglot Pipeline</h3>
+            <p class="kicker">CFBD API · DuckDB · dbt · statistical models in R <em>and</em> Python · Quarto</p>
+            <p>
+              An end-to-end pipeline that ingests college-football data (CollegeFootballData API,
+              plus an ethical web-scraped source) into a tested bronze / silver / gold medallion with a
+              Kimball star schema and an <strong>SCD2</strong> dimension, then implements the statistical
+              models from <em>Football Analytics with Python &amp; R</em> in <strong>both R and Python</strong> &mdash;
+              with a committed <strong>R&#8596;Python parity check</strong> that fails the build if the two
+              disagree. A game win-probability model is benchmarked against the <strong>betting market</strong>,
+              and a preseason model <strong>forecasts the 2026 season before it starts</strong> &mdash; all
+              surfaced in a live Quarto dashboard.
+            </p>
+            <div class="tags">
+              <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
+              <span class="tag">dbt</span><span class="tag">DuckDB</span>
+              <span class="tag">Kimball / SCD2</span><span class="tag">tidymodels · scikit-learn</span>
+              <span class="tag">Statistical modeling</span><span class="tag">Quarto</span>
+            </div>
+            <div class="links">
+              <a href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/cfb-analytics" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/cfb-analytics#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
+            </div>
+          </div>
+        </article>
+
         <!-- FEATURED -->
         <article class="card feature">
           <a class="thumb" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener"
@@ -216,13 +250,6 @@
           </div>
         </article>
 
-        <!-- PLACEHOLDER -->
-        <article class="card soon">
-          <div>
-            <strong>More on the way</strong><br>
-            Cloud data-engineering projects (BigQuery, AWS) &mdash; publishing soon.
-          </div>
-        </article>
       </div>
     </div>
   </section>
@@ -250,10 +277,10 @@
           <ul>
             <li>Python</li>
             <li>SQL</li>
-            <li>pandas</li>
-            <li>Git &amp; GitHub</li>
+            <li>R · tidyverse · tidymodels</li>
+            <li>pandas · Git &amp; GitHub</li>
+            <li>Quarto · Plotly</li>
             <li>pdfplumber · reportlab</li>
-            <li>Plotly</li>
           </ul>
         </div>
         <div class="skillcol">
@@ -261,9 +288,9 @@
           <ul>
             <li>Applied machine learning</li>
             <li>Supervised &amp; unsupervised</li>
-            <li>Feature engineering</li>
-            <li>Model evaluation</li>
-            <li>scikit-learn</li>
+            <li>Statistical modeling (R &amp; Python)</li>
+            <li>Model evaluation &amp; calibration</li>
+            <li>scikit-learn · statsmodels</li>
             <li>MIT Applied Data Science Program</li>
           </ul>
         </div>
