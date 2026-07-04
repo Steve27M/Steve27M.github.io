@@ -141,6 +141,44 @@
       <p class="sub">Each one is self-contained and reproducible &mdash; clone, run one command, see it work.</p>
 
       <div class="grid">
+        <!-- FEATURED: MLB ANALYTICS (DIAMONDIQ) -->
+        <article class="card feature">
+          <a class="thumb" href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener"
+             title="Open the live DIAMONDIQ dashboard"
+             style="background:radial-gradient(130% 60% at 50% 0%,#2a0e10,#08090c 55%);min-height:280px;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px">
+            <div>
+              <div style="font-weight:800;font-size:14px;letter-spacing:.2em;color:#9aa4b6">DIAMOND<span style="color:#ef4b4b">IQ</span></div>
+              <div style="font-weight:800;font-size:clamp(26px,4.5vw,44px);line-height:1.05;letter-spacing:-.01em;color:#f4f6fb;margin-top:16px">Live 2026 MLB Analytics</div>
+              <div style="font-size:15px;color:#9aa4b6;margin-top:14px">Skill vs. luck · live playoff odds · an R&#8596;Python parity gate</div>
+            </div>
+          </a>
+          <div class="card-body">
+            <h3>MLB Analytics &mdash; DIAMONDIQ <span style="font-size:13px;font-weight:700;color:#16a34a;background:#e7f7ee;border:1px solid #bfe9cf;border-radius:999px;padding:2px 9px;vertical-align:middle">LIVE</span></h3>
+            <p class="kicker">Statcast &amp; MLB Stats API · DuckDB · dbt · statistical models in R <em>and</em> Python · nightly on GitHub Actions</p>
+            <p>
+              A polyglot MLB pipeline that ingests <strong>2.18M pitches</strong> into a tested bronze / silver /
+              gold medallion with a Kimball star schema and a daily-grain <strong>SCD2</strong> dimension, then
+              builds <strong>13 statistical models twice &mdash; in R and Python</strong> behind a committed
+              <strong>R&#8596;Python parity gate</strong> that fails the build unless the two agree. The run-expectancy
+              matrix (RE24) is rebuilt from scratch; the game win-probability model is evaluated once on a
+              <strong>sealed 2025 holdout</strong> (it beats both baselines). A separate <strong>live 2026 layer</strong>
+              refreshes playoff odds <strong>nightly</strong> while the validated analysis stays frozen &mdash; all in
+              an audience-oriented dashboard (fans, data, and betting/analytics) with an honest, uncertainty-forward voice.
+            </p>
+            <div class="tags">
+              <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
+              <span class="tag">dbt</span><span class="tag">DuckDB</span><span class="tag">Dagster</span>
+              <span class="tag">Kimball / SCD2</span><span class="tag">R&#8596;Python parity gate</span>
+              <span class="tag">Calibration &amp; holdout discipline</span><span class="tag">GitHub Actions (nightly)</span>
+            </div>
+            <div class="links">
+              <a href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
+              <a href="https://github.com/Steve27M/mlb-analytics#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
+            </div>
+          </div>
+        </article>
+
         <!-- FEATURED: CFB ANALYTICS -->
         <article class="card feature">
           <a class="thumb" href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener"
