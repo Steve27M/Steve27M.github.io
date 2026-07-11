@@ -1,380 +1,600 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stephen Marn — Data Engineer · ML / AI</title>
-<meta name="description" content="Stephen Marn — Data Engineer with applied ML/AI. I build production-grade data pipelines: from raw operational documents to tested, queryable warehouses and the dashboards that make them useful.">
-<meta property="og:title" content="Stephen Marn — Data Engineer · ML / AI">
-<meta property="og:description" content="Production-grade data pipelines: raw documents → tested medallion warehouses → interactive dashboards.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://steve27m.github.io/assets/dashboard.png">
-<meta property="og:url" content="https://steve27m.github.io/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📊</text></svg>">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stephen Marn — Senior Data Engineer</title>
+<meta name="description" content="Stephen Marn, Senior Data Engineer. I don't just build pipelines — I operate them, in public, and you can watch. Live dashboards, nightly CI, verifiable claims." />
+<meta property="og:title" content="Stephen Marn — Senior Data Engineer" />
+<meta property="og:description" content="Systems I run in public: tested medallion warehouses, parity-gated models, live dashboards." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://steve27m.github.io/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-  :root{
-    --bg:#ffffff; --bg-soft:#f6f8fb; --card:#ffffff; --text:#16202e; --muted:#5b6b80;
-    --line:#e4e9f0; --accent:#2563eb; --accent-soft:#eaf1ff; --ring:rgba(37,99,235,.18);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; color:var(--text); background:var(--bg);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--accent); text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:1000px; margin:0 auto; padding:0 24px}
+:root{
+  --paper:#F5F7FA; --card:#FFFFFF; --grid:#D9E4F0; --grid-strong:#C8D8EA;
+  --ink:#152238; --ink-2:#44546C; --faint:#62748C; --hairline:#D5DEEA;
+  --cobalt:#1E4FBC; --cobalt-dark:#173F99;
+  --cyano:#12305E; --cyano-2:#0D2549; --cyan-line:#A8C8F8; --cyan-dim:#84A6DC;
+  --redline:#C43C2E;
+  --bronze:#C08457; --silver:#C9D6E8; --gold:#E8B93E;
+  --r-blue:#5FA0EC; --py-yellow:#EFC75E;
+  --display:'Archivo',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  --maxw:1080px; --gutter:clamp(18px,4vw,44px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* drafting grid: fine lines, heavier every 5th — quiet */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+    linear-gradient(var(--grid-strong) 1px,transparent 1px),linear-gradient(90deg,var(--grid-strong) 1px,transparent 1px);
+  background-size:22px 22px,22px 22px,110px 110px,110px 110px;opacity:.45}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);position:relative;z-index:1}
 
-  /* header */
-  header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.85);
-    backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-  .nav{display:flex; align-items:center; justify-content:space-between; height:62px}
-  .brand{font-weight:700; letter-spacing:-.01em}
-  .nav-links{display:flex; gap:22px; align-items:center}
-  .nav-links a{color:var(--muted); font-size:14px; font-weight:500}
-  .nav-links a:hover{color:var(--text); text-decoration:none}
-  @media(max-width:640px){ .nav-links a.hide-sm{display:none} }
+/* scroll progress: one thin cobalt line */
+#progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--cobalt);z-index:100}
 
-  /* hero */
-  .hero{padding:84px 0 64px}
-  .eyebrow{color:var(--accent); font-weight:600; font-size:14px; letter-spacing:.04em; text-transform:uppercase}
-  h1{font-size:clamp(34px,6vw,56px); line-height:1.05; letter-spacing:-.02em; margin:14px 0 0}
-  .hero p.lead{font-size:clamp(17px,2.4vw,21px); color:var(--muted); max-width:640px; margin:20px 0 0}
-  .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px}
-  .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border-radius:10px;
-    font-weight:600; font-size:15px; border:1px solid var(--line); background:var(--card); color:var(--text)}
-  .btn:hover{text-decoration:none; border-color:var(--accent); color:var(--accent)}
-  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
-  .btn.primary:hover{background:#1d4ed8; color:#fff}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-inner{display:flex;align-items:center;gap:24px;height:56px}
+.brand{font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--ink)}
+.brand .dot{color:var(--cobalt)}
+.nav-links{margin-left:auto;display:flex;gap:22px;font-size:13px;font-weight:500;color:var(--ink-2)}
+.nav-links a{transition:color .15s;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--cobalt);transition:width .2s}
+.nav-links a:hover{color:var(--cobalt)}
+.nav-links a:hover::after{width:100%}
+@media(max-width:680px){.nav-links{display:none}}
 
-  /* sections */
-  section{padding:56px 0; border-top:1px solid var(--line)}
-  .sec-head{font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
-  h2{font-size:clamp(24px,4vw,32px); letter-spacing:-.01em; margin:8px 0 0}
-  .sub{color:var(--muted); margin:8px 0 28px}
+/* load-in + reveal (subtle) */
+.li{opacity:0;transform:translateY(12px);animation:liIn .6s ease forwards}
+@keyframes liIn{to{opacity:1;transform:none}}
+.li.d1{animation-delay:.05s}.li.d2{animation-delay:.14s}.li.d3{animation-delay:.23s}
+.li.d4{animation-delay:.34s}.li.d5{animation-delay:.45s}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
 
-  /* project cards */
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:22px}
-  @media(max-width:760px){ .grid{grid-template-columns:1fr} }
-  .card{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--card);
-    transition:box-shadow .15s, transform .15s, border-color .15s; display:flex; flex-direction:column}
-  .card:hover{box-shadow:0 12px 30px -12px var(--ring); border-color:#cdd9ea; transform:translateY(-2px)}
-  .card.feature{grid-column:1 / -1}
-  .card.feature .card-body{padding:24px 26px}
-  .thumb{display:block; border-bottom:1px solid var(--line); background:#0a1426}
-  .thumb img{display:block; width:100%; height:auto}
-  .card-body{padding:20px 22px}
-  .card h3{margin:0; font-size:20px; letter-spacing:-.01em}
-  .card .kicker{color:var(--muted); font-size:14px; margin:4px 0 0; font-weight:500}
-  .card p{color:#3a4a5e; margin:14px 0 0}
-  .tags{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 0}
-  .tag{font-size:12px; font-weight:600; color:#33507e; background:var(--accent-soft);
-    border:1px solid #d8e6ff; border-radius:999px; padding:4px 10px}
-  .links{display:flex; flex-wrap:wrap; gap:18px; margin:20px 0 0}
-  .links a{font-weight:600; font-size:15px}
-  .links a .arr{font-weight:700}
+/* redline = approval-required markup */
+.redline{color:var(--redline);border:1px dashed var(--redline);padding:1px 8px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;background:rgba(196,60,46,.05)}
 
-  .card.soon{align-items:center; justify-content:center; text-align:center; border-style:dashed;
-    color:var(--muted); min-height:180px; padding:28px}
-  .card.soon strong{color:var(--text)}
+/* ============ HERO ============ */
+.hero{padding:44px 0 34px;min-height:calc(100vh - 60px);display:flex;flex-direction:column}
+.hero-top{display:flex;gap:30px;align-items:flex-start;justify-content:space-between}
+.hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero .eyebrow::before{content:"";width:26px;height:1px;background:var(--cobalt)}
+.hero .name{font-size:15px;font-weight:500;color:var(--ink-2);margin-bottom:6px}
+.hero h1{font-family:var(--display);font-weight:700;line-height:1.0;letter-spacing:-.02em;font-size:clamp(38px,5.8vw,66px);color:var(--ink)}
+.hero .tagline{margin-top:14px;font-size:clamp(15px,1.7vw,19px);color:var(--ink-2);max-width:52ch}
+.status-line{margin-top:14px;font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.status-line .dot{width:8px;height:8px;background:#2FA262;border-radius:50%}
 
-  /* skills */
-  .skills{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
-  @media(max-width:760px){ .skills{grid-template-columns:1fr} }
-  .skillcol h4{margin:0 0 10px; font-size:15px}
-  .skillcol ul{list-style:none; margin:0; padding:0}
-  .skillcol li{color:#3a4a5e; padding:5px 0; border-bottom:1px dashed var(--line); font-size:15px}
-  .skillcol li:last-child{border-bottom:0}
+/* title block — the signature */
+.title-block{border:1.5px solid var(--ink);background:var(--card);font-family:var(--mono);font-size:10.5px;min-width:230px;box-shadow:4px 4px 0 rgba(21,34,56,.08)}
+.title-block .tb-head{padding:8px 12px;border-bottom:1.5px solid var(--ink);font-weight:600;letter-spacing:.08em}
+.title-block .row{display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--hairline)}
+.title-block .row:last-child{border-bottom:0}
+.title-block .row span{padding:6px 12px;color:var(--faint);letter-spacing:.04em}
+.title-block .row b{padding:6px 12px;border-left:1px solid var(--hairline);color:var(--ink);font-weight:500}
+@media(max-width:860px){.title-block{display:none}}
 
-  /* about */
-  .about p{max-width:720px; color:#3a4a5e; font-size:17px}
+.chips{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:880px}
+.chip{border:1px solid var(--hairline);background:var(--card);padding:16px 18px;display:block;position:relative;
+  transition:transform .18s,border-color .18s,box-shadow .18s}
+.chip:hover{transform:translateY(-3px);border-color:var(--cobalt);box-shadow:0 10px 26px rgba(30,79,188,.10)}
+.chip .cv{font-family:var(--display);font-size:clamp(18px,2vw,23px);font-weight:600;color:var(--ink)}
+.chip .ck{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.chip .verify{font-family:var(--mono);font-size:10.5px;color:var(--cobalt);margin-top:8px;opacity:0;transition:opacity .18s}
+.chip:hover .verify{opacity:1}
+@media(max-width:720px){.chips{grid-template-columns:1fr}}
 
-  /* contact */
-  .contact-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:24px}
+.cta-row{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{font-size:14px;font-weight:500;padding:12px 20px;border:1px solid var(--ink);transition:all .18s;display:inline-flex;align-items:center;gap:8px;background:var(--card)}
+.btn.primary{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.btn.primary:hover{background:var(--cobalt-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,79,188,.25)}
+.btn.ghost:hover{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-2px)}
 
-  footer{border-top:1px solid var(--line); padding:30px 0; color:var(--muted); font-size:14px}
-  .footer-row{display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center}
+.proof-claim{margin-top:auto;padding-top:26px;font-size:14.5px;color:var(--ink-2)}
+.proof-claim b{color:var(--ink)}
+
+/* cyanotype blueprint panel (pinned drawing) */
+.cyano{background:var(--cyano);border:1px solid var(--cyano-2);color:var(--cyan-line);box-shadow:0 14px 40px rgba(18,48,94,.20);position:relative}
+.cyano::after{content:"";position:absolute;inset:8px;border:1px solid rgba(168,200,248,.25);pointer-events:none}
+.cyano .panel-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan-dim);
+  display:flex;gap:8px;padding:12px 18px;border-bottom:1px solid rgba(168,200,248,.2);position:relative;z-index:1}
+.cyano .panel-label .ref{margin-left:auto}
+.pipeline{margin-top:26px}
+.pipe-body{padding:20px 18px 8px;position:relative;z-index:1}
+.pipe-svg{width:100%;height:auto;display:block}
+
+/* sections */
+section{padding:74px 0}
+.section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;border-bottom:1.5px solid var(--ink);padding-bottom:12px}
+.section-head .num{font-family:var(--mono);font-size:12px;color:var(--cobalt);letter-spacing:.06em}
+.section-head h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.015em}
+.section-head .meta{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
+.lead-line{color:var(--ink-2);font-size:15.5px;margin:-14px 0 28px;max-width:68ch}
+
+/* what I do */
+.context-card{border:1px solid var(--hairline);background:var(--card);padding:28px;max-width:820px;box-shadow:0 2px 10px rgba(21,34,56,.04)}
+.context-card p{color:var(--ink);font-size:16.5px;line-height:1.7}
+.reframe{margin-top:18px;padding:16px 20px;border-left:3px solid var(--cobalt);background:#EFF4FC;font-size:15px;line-height:1.65;color:var(--ink-2)}
+.reframe b{color:var(--ink)}
+.approval-flag{display:inline-block;margin-bottom:12px}
+
+/* project cards */
+.proj{border:1px solid var(--hairline);background:var(--card);margin-bottom:16px;overflow:hidden;transition:border-color .2s,box-shadow .2s;box-shadow:0 2px 10px rgba(21,34,56,.04)}
+.proj:hover{border-color:var(--cobalt);box-shadow:0 10px 30px rgba(30,79,188,.10)}
+.proj-head{padding:24px;cursor:pointer;transition:background .15s;position:relative}
+.proj-head:hover{background:#FAFBFD}
+.proj-top{display:flex;align-items:flex-start;gap:18px}
+.proj-id{font-family:var(--mono);font-size:11px;color:var(--cobalt);border:1px solid var(--cobalt);padding:5px 9px;white-space:nowrap;letter-spacing:.05em}
+.proj-title{flex:1}
+.proj-title h3{font-family:var(--display);font-size:clamp(19px,2.3vw,25px);font-weight:600;line-height:1.15}
+.plain{margin-top:8px;font-size:15px;color:var(--ink-2);line-height:1.62;max-width:70ch}
+.techline{margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.status-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.status-row img{height:20px;display:block}
+.status-row .dates{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:4px}
+.decision{margin-top:12px;font-size:14px;color:var(--ink-2);font-style:italic;line-height:1.55}
+.decision b{color:var(--redline);font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-right:8px}
+.proj-toggle{font-family:var(--mono);font-size:22px;color:var(--faint);transition:transform .25s,color .25s;line-height:1}
+.proj.open .proj-toggle{transform:rotate(45deg);color:var(--cobalt)}
+.proj-body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.proj.open .proj-body{max-height:1200px}
+.proj-inner{padding:0 24px 26px;border-top:1px solid var(--hairline)}
+.proj-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding-top:22px}
+.proj-grid p{color:var(--ink-2);font-size:14.5px;line-height:1.68;margin-bottom:12px}
+.proj-grid p strong{color:var(--ink)}
+.proj-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.proj-links a{font-size:13px;font-weight:500;padding:9px 14px;border:1px solid var(--hairline);transition:all .15s;color:var(--ink-2)}
+.proj-links a:hover{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-1px)}
+.proj-links a.primary{border-color:var(--cobalt);color:var(--cobalt);background:#EFF4FC}
+.side-note{font-size:13px;color:var(--faint);line-height:1.6}
+.sig-wrap{padding:0}
+@media(max-width:720px){.proj-grid{grid-template-columns:1fr}}
+
+/* currently building */
+.building{border:1px solid var(--hairline);background:var(--card);box-shadow:0 2px 10px rgba(21,34,56,.04)}
+.building .row{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:15px 20px;border-bottom:1px solid var(--hairline);font-size:14.5px;transition:background .15s}
+.building .row:hover{background:#FAFBFD}
+.building .row:last-child{border-bottom:0}
+.building .tag{font-family:var(--mono);font-size:10.5px;color:var(--cobalt);border:1px solid var(--cobalt);padding:3px 8px;white-space:nowrap;letter-spacing:.05em}
+.building .desc{color:var(--ink-2)}
+.building .desc b{color:var(--ink)}
+.building .eta{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap}
+@media(max-width:640px){.building .row{grid-template-columns:1fr}}
+
+/* skills */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cap{background:var(--card);padding:22px;border:1px solid var(--hairline);box-shadow:0 2px 10px rgba(21,34,56,.04)}
+.cap h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hairline)}
+.cap ul{list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+.cap li{font-size:12.5px;color:var(--ink-2);border:1px solid var(--hairline);padding:5px 10px;transition:all .15s;cursor:default;background:var(--paper)}
+.cap li:hover{border-color:var(--cobalt);color:var(--cobalt)}
+@media(max-width:760px){.cap-grid{grid-template-columns:1fr}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:start}
+.about-grid p{color:var(--ink-2);font-size:15.5px;line-height:1.75;margin-bottom:14px}
+.about-grid p strong{color:var(--ink)}
+.cred{margin-top:8px;padding:14px 18px;border:1px solid var(--hairline);background:var(--card);font-size:13.5px;color:var(--ink-2)}
+.cred a{color:var(--cobalt);font-weight:500}
+.cred a:hover{text-decoration:underline}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+
+/* footer with full title block */
+footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;background:var(--card)}
+.foot-grid{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:start}
+.foot-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.foot-note{font-size:13.5px;color:var(--ink-2)}
+.tb-foot{border:1.5px solid var(--ink);font-family:var(--mono);font-size:10.5px;background:var(--paper)}
+.tb-foot .tb-head{padding:8px 12px;border-bottom:1.5px solid var(--ink);font-weight:600;letter-spacing:.08em}
+.tb-foot .row{display:grid;grid-template-columns:1fr 1.6fr;border-bottom:1px solid var(--hairline)}
+.tb-foot .row:last-child{border-bottom:0}
+.tb-foot .row span{padding:6px 12px;color:var(--faint)}
+.tb-foot .row b{padding:6px 12px;border-left:1px solid var(--hairline);font-weight:500}
+.foot-meta{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);display:flex;gap:22px;flex-wrap:wrap}
+.foot-meta a{color:var(--ink-2)}
+.foot-meta a:hover{color:var(--cobalt)}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv,.li{opacity:1;transform:none}
+}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <span class="brand">Stephen&nbsp;Marn</span>
-    <nav class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#skills" class="hide-sm">Skills</a>
-      <a href="#about" class="hide-sm">About</a>
-      <a href="#contact">Contact</a>
-      <a href="assets/Stephen_Marn_Resume.pdf" target="_blank" rel="noopener" class="hide-sm">Résumé ↗</a>
-      <a href="https://www.linkedin.com/in/stephen-marn-361b08179/" target="_blank" rel="noopener">LinkedIn ↗</a>
-    </nav>
+<div id="progress" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">stephen_marn<span class="dot">.</span>eng</a>
+    <div class="nav-links">
+      <a href="#context">What I do</a><a href="#work">Systems</a><a href="#building">Building</a><a href="#skills">Skills</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </div>
   </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="top" class="wrap hero">
+  <div class="hero-top">
+    <div style="flex:1">
+      <div class="eyebrow li d1">Portfolio · systems run in public</div>
+      <p class="name li d2">Stephen Marn</p>
+      <h1 class="li d2">Senior Data Engineer</h1>
+      <p class="tagline li d3">I turn messy operational data into systems people trust.</p>
+      <!-- [STEPHEN — APPROVAL REQUIRED] status line: do not invent values -->
+      <div class="status-line li d3">
+        <span class="dot"></span>
+        <span>&lt;City, ST&gt; · &lt;remote stance&gt; · &lt;availability&gt;</span>
+        <span class="redline">REDLINE — approve status line</span>
+      </div>
+    </div>
+    <div class="title-block li d2" aria-hidden="true">
+      <div class="tb-head">TITLE BLOCK</div>
+      <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
+      <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
+      <div class="row"><span>REV</span><b>C · 2026-07-10</b></div>
+      <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
+      <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
+    </div>
+  </div>
+
+  <div class="chips li d4">
+    <a class="chip" href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">
+      <div class="cv">2.18M records</div>
+      <div class="ck">modeled &amp; rebuilt nightly by CI</div>
+      <div class="verify">verify: repo + workflow history ↗</div>
+    </a>
+    <a class="chip" href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">
+      <div class="cv">13 models × 2 languages</div>
+      <div class="ck">R ↔ Python parity gate in CI</div>
+      <div class="verify">verify: parity checks in repo ↗</div>
+    </a>
+    <a class="chip" href="#work">
+      <div class="cv">3 live dashboards</div>
+      <div class="ck">open one right now</div>
+      <div class="verify">verify: links below ↓</div>
+    </a>
+  </div>
+
+  <div class="cta-row li d5">
+    <a class="btn primary" href="https://steve27m.github.io/assets/Stephen_Marn_Resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
+    <a class="btn ghost" href="https://github.com/Steve27M" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/stephen-marn-361b08179/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn ghost" href="mailto:stevemarn27@gmail.com">Email</a>
+  </div>
+
+  <p class="proof-claim li d5">I don't just build pipelines — <b>I operate them, in public, and you can watch.</b></p>
 </header>
 
-<main>
-  <!-- HERO -->
-  <div class="wrap hero">
-    <div class="eyebrow">Data Engineer · ML / AI</div>
-    <h1>I turn messy operational data<br>into systems people trust.</h1>
-    <p class="lead">
-      I build production-grade data pipelines &mdash; from raw operational documents to tested,
-      queryable warehouses and the dashboards that make them useful. Strong on data engineering,
-      with applied machine learning and AI.
-    </p>
-    <div class="cta">
-      <a class="btn primary" href="#projects">View projects</a>
-      <a class="btn" href="assets/Stephen_Marn_Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
-      <a class="btn" href="https://github.com/Steve27M" target="_blank" rel="noopener">GitHub ↗</a>
-      <a class="btn" href="https://www.linkedin.com/in/stephen-marn-361b08179/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="btn" href="mailto:stevemarn27@gmail.com">Email</a>
+<!-- pinned blueprint: medallion drawing -->
+<div class="wrap rv">
+  <div class="cyano pipeline" aria-label="Medallion pipeline blueprint">
+    <div class="panel-label">DWG PL-001 · Medallion pipeline / bronze → silver → gold <span class="ref">CYANOTYPE</span></div>
+    <div class="pipe-body">
+      <svg class="pipe-svg" viewBox="0 0 940 148" role="img" aria-label="Blueprint schematic of a bronze silver gold data pipeline">
+        <path id="flowpath" d="M70,72 H880" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+        <rect x="40"  y="45" width="130" height="54" fill="none" stroke="#A8C8F8" stroke-width="1"/>
+        <rect x="270" y="45" width="130" height="54" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+        <rect x="500" y="45" width="130" height="54" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+        <rect x="730" y="45" width="130" height="54" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+        <text x="52"  y="37" font-family="monospace" font-size="10" fill="#84A6DC">SOURCE</text>
+        <text x="52"  y="76" font-family="monospace" font-size="13" fill="#DCE9FC" font-weight="600">PDF · API · CSV</text>
+        <text x="52"  y="118" font-family="monospace" font-size="10" fill="#84A6DC">raw ingest</text>
+        <text x="282" y="37" font-family="monospace" font-size="10" fill="#D9925F">BRONZE</text>
+        <text x="282" y="76" font-family="monospace" font-size="13" fill="#DCE9FC" font-weight="600">landing</text>
+        <text x="282" y="118" font-family="monospace" font-size="10" fill="#84A6DC">immutable · lineage</text>
+        <text x="512" y="37" font-family="monospace" font-size="10" fill="#C9D6E8">SILVER</text>
+        <text x="512" y="76" font-family="monospace" font-size="13" fill="#DCE9FC" font-weight="600">cleaned</text>
+        <text x="512" y="118" font-family="monospace" font-size="10" fill="#84A6DC">tested · conformed</text>
+        <text x="742" y="37" font-family="monospace" font-size="10" fill="#EFC75E">GOLD</text>
+        <text x="742" y="76" font-family="monospace" font-size="13" fill="#DCE9FC" font-weight="600">star schema</text>
+        <text x="742" y="118" font-family="monospace" font-size="10" fill="#84A6DC">Kimball · SCD2</text>
+        <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#flowpath"/></animateMotion></circle>
+      </svg>
     </div>
   </div>
+</div>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="wrap">
-      <div class="sec-head">Selected work</div>
-      <h2>Projects</h2>
-      <p class="sub">Each one is self-contained and reproducible &mdash; clone, run one command, see it work.</p>
+<!-- ============ WHAT I DO ============ -->
+<section id="context" class="wrap rv">
+  <div class="section-head"><span class="num">SHT 01</span><h2>What I do</h2><span class="meta">day job · then the reframe</span></div>
+  <div class="context-card">
+    <!-- [STEPHEN — APPROVAL REQUIRED] day-job paragraph. Spec's own draft, verbatim. Model must not expand it. -->
+    <span class="redline approval-flag">REDLINE — draft pending Stephen's approval</span>
+    <p>By day I build and operate the data platform at a manufacturing company — orchestrated warehousing, automated ingestion from operational systems, and predictive models in daily use by operations and management.</p>
+    <div class="reframe">That work is proprietary, so everything below is <b>personal work built and run in public</b> — the same patterns, where you can inspect every decision.</div>
+  </div>
+</section>
 
-      <div class="grid">
-        <!-- FEATURED: MLB ANALYTICS (DIAMONDIQ) -->
-        <article class="card feature">
-          <a class="thumb" href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener"
-             title="Open the live DIAMONDIQ dashboard"
-             style="background:radial-gradient(130% 60% at 50% 0%,#2a0e10,#08090c 55%);min-height:280px;display:flex;align-items:center;justify-content:center;text-align:center;padding:32px">
-            <div>
-              <div style="font-weight:800;font-size:14px;letter-spacing:.2em;color:#9aa4b6">DIAMOND<span style="color:#ef4b4b">IQ</span></div>
-              <div style="font-weight:800;font-size:clamp(26px,4.5vw,44px);line-height:1.05;letter-spacing:-.01em;color:#f4f6fb;margin-top:16px">Live 2026 MLB Analytics</div>
-              <div style="font-size:15px;color:#9aa4b6;margin-top:14px">Skill vs. luck · live playoff odds · an R&#8596;Python parity gate</div>
-            </div>
-          </a>
-          <div class="card-body">
-            <h3>MLB Analytics &mdash; DIAMONDIQ <span style="font-size:13px;font-weight:700;color:#16a34a;background:#e7f7ee;border:1px solid #bfe9cf;border-radius:999px;padding:2px 9px;vertical-align:middle">LIVE</span></h3>
-            <p class="kicker">Statcast &amp; MLB Stats API · DuckDB · dbt · statistical models in R <em>and</em> Python · nightly on GitHub Actions</p>
-            <p>
-              A polyglot MLB pipeline that ingests <strong>2.18M pitches</strong> into a tested bronze / silver /
-              gold medallion with a Kimball star schema and a daily-grain <strong>SCD2</strong> dimension, then
-              builds <strong>13 statistical models twice &mdash; in R and Python</strong> behind a committed
-              <strong>R&#8596;Python parity gate</strong> that fails the build unless the two agree. The run-expectancy
-              matrix (RE24) is rebuilt from scratch; the game win-probability model is evaluated once on a
-              <strong>sealed 2025 holdout</strong> (it beats both baselines). A separate <strong>live 2026 layer</strong>
-              refreshes playoff odds <strong>nightly</strong> while the validated analysis stays frozen &mdash; all in
-              an audience-oriented dashboard (fans, data, and betting/analytics) with an honest, uncertainty-forward voice.
-            </p>
-            <div class="tags">
-              <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
-              <span class="tag">dbt</span><span class="tag">DuckDB</span><span class="tag">Dagster</span>
-              <span class="tag">Kimball / SCD2</span><span class="tag">R&#8596;Python parity gate</span>
-              <span class="tag">Calibration &amp; holdout discipline</span><span class="tag">GitHub Actions (nightly)</span>
-            </div>
-            <div class="links">
-              <a href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/mlb-analytics#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
-            </div>
+<!-- ============ SYSTEMS ============ -->
+<section id="work" class="wrap">
+  <div class="section-head rv"><span class="num">SHT 02</span><h2>Systems I run in public</h2><span class="meta">ordered by operated, not recent</span></div>
+  <p class="lead-line rv">Every claim on these cards resolves to public evidence — a repo, a workflow history, a dashboard — in two clicks or fewer.</p>
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-01</div>
+        <div class="proj-title">
+          <h3>MLB Analytics Pipeline</h3>
+          <p class="plain">Takes 2.18M raw baseball pitch records and turns them into 13 statistical models and a live dashboard — rebuilt from scratch every night, automatically, with the build refusing to ship if any check fails.</p>
+          <p class="techline">Statcast → DuckDB → dbt (Kimball, SCD2) → R + Python models → static dashboard</p>
+          <div class="status-row">
+            <!-- TODO Phase 3: workflow badge once filename confirmed -->
+            <img src="https://img.shields.io/github/last-commit/Steve27M/mlb-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="mlb-analytics last commit" loading="lazy" />
+            <img src="https://img.shields.io/github/actions/workflow/status/Steve27M/mlb-analytics/nightly.yml?label=nightly%20run&labelColor=EFF4FC&style=flat-square" alt="nightly workflow status (confirm filename)" loading="lazy" onerror="this.remove()" />
+            <span class="dates">Built &lt;mon yyyy&gt; · running since &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
           </div>
-        </article>
-
-        <!-- FEATURED: CFB ANALYTICS -->
-        <article class="card feature">
-          <a class="thumb" href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener"
-             title="Open the live interactive dashboard">
-            <img src="assets/cfb-analytics.png" alt="Projected 2026 college-football win totals from the cfb-analytics pipeline"
-                 loading="lazy" width="1634" height="874">
-          </a>
-          <div class="card-body">
-            <h3>College-Football Analytics &mdash; Polyglot Pipeline</h3>
-            <p class="kicker">CFBD API · DuckDB · dbt · statistical models in R <em>and</em> Python · Quarto</p>
-            <p>
-              An end-to-end pipeline that ingests college-football data (CollegeFootballData API,
-              plus an ethical web-scraped source) into a tested bronze / silver / gold medallion with a
-              Kimball star schema and an <strong>SCD2</strong> dimension, then implements the statistical
-              models from <em>Football Analytics with Python &amp; R</em> in <strong>both R and Python</strong> &mdash;
-              with a committed <strong>R&#8596;Python parity check</strong> that fails the build if the two
-              disagree. A game win-probability model is benchmarked against the <strong>betting market</strong>,
-              and a preseason model <strong>forecasts the 2026 season before it starts</strong> &mdash; all
-              surfaced in a live Quarto dashboard.
-            </p>
-            <div class="tags">
-              <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
-              <span class="tag">dbt</span><span class="tag">DuckDB</span>
-              <span class="tag">Kimball / SCD2</span><span class="tag">tidymodels · scikit-learn</span>
-              <span class="tag">Statistical modeling</span><span class="tag">Quarto</span>
-            </div>
-            <div class="links">
-              <a href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/cfb-analytics" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/cfb-analytics#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- FEATURED -->
-        <article class="card feature">
-          <a class="thumb" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener"
-             title="Open the live interactive dashboard">
-            <img src="assets/dashboard.png" alt="Interactive production & pipeline dashboard for the manufacturing ELT project"
-                 loading="lazy" width="1600" height="860">
-          </a>
-          <div class="card-body">
-            <h3>Manufacturing PDF&nbsp;→&nbsp;Warehouse</h3>
-            <p class="kicker">Medallion ELT · Dagster + dbt + DuckDB · Kimball star schema</p>
-            <p>
-              A production-grade ELT pipeline that turns a plant&rsquo;s daily PDF production reports into a
-              tested, queryable analytics warehouse on a bronze / silver / gold medallion with a Kimball
-              star schema &mdash; surfaced in a self-contained, interactive dashboard. Append-only lineage,
-              a quarantine for bad rows, source-freshness &amp; relationship tests, and architecture
-              &ldquo;fitness functions.&rdquo; All data is synthetic and generated from scratch.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">dbt</span><span class="tag">Dagster</span>
-              <span class="tag">DuckDB</span><span class="tag">Kimball / dimensional modeling</span>
-              <span class="tag">Data quality &amp; testing</span><span class="tag">Power BI</span>
-            </div>
-            <div class="links">
-              <a href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener">Live dashboard <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/manufacturing-pdf-etl" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/manufacturing-pdf-etl#readme" target="_blank" rel="noopener">Case study <span class="arr">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- MIT ADSP -->
-        <article class="card">
-          <div class="card-body">
-            <h3>MIT Applied Data Science &mdash; Portfolio</h3>
-            <p class="kicker">31 projects · ML · Deep Learning · Recsys · Network analysis</p>
-            <p>
-              A curated set of projects from the <strong>MIT Applied Data Science Program</strong>
-              (MIT IDSS / Great Learning): EDA &amp; statistical inference, supervised &amp; unsupervised
-              ML, deep learning (CNNs), recommender systems, and network analysis &mdash; each with a
-              written walk-through, a methodology diagram, and the resulting visualizations.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">scikit-learn</span>
-              <span class="tag">Deep learning (CNN)</span><span class="tag">Recommender systems</span>
-              <span class="tag">Clustering / PCA</span><span class="tag">Network analysis</span>
-            </div>
-            <div class="links">
-              <a href="https://steve27m.github.io/mit-applied-data-science/" target="_blank" rel="noopener">Live site <span class="arr">↗</span></a>
-              <a href="https://github.com/Steve27M/mit-applied-data-science" target="_blank" rel="noopener">View code <span class="arr">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- OpenSky -->
-        <article class="card">
-          <div class="card-body">
-            <h3>Live Flight Telemetry &rarr; Warehouse</h3>
-            <p class="kicker">OpenSky API &middot; DuckDB &middot; dbt Kimball star &middot; real ADS-B</p>
-            <p>
-              A pipeline that ingests <strong>real, live aircraft telemetry</strong> from the OpenSky
-              Network API into a tested bronze / silver / gold medallion with a Kimball star schema,
-              and maps live air traffic. Demonstrates production-grade <strong>API ingestion</strong> &mdash;
-              incremental polling, rate-limit &amp; retry handling, immutable landing with lineage &mdash;
-              on a real, moving source.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">API ingestion</span><span class="tag">dbt</span>
-              <span class="tag">DuckDB</span><span class="tag">Kimball / star schema</span><span class="tag">Geospatial / time-series</span>
-            </div>
-            <div class="links">
-              <a href="https://github.com/Steve27M/opensky-flight-pipeline#readme" target="_blank" rel="noopener">Code &amp; dashboard <span class="arr">&#8599;</span></a>
-            </div>
-          </div>
-        </article>
-
+          <p class="decision"><b>Hardest decision</b>Every model is implemented twice — once in R, once in Python — and deployment is blocked unless both agree. Here's why the duplication is the feature →</p>
+        </div>
+        <div class="proj-toggle">+</div>
       </div>
     </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="wrap">
-      <div class="sec-head">What I work with</div>
-      <h2>Skills</h2>
-      <p class="sub">Tools I&rsquo;ve used to ship the work above.</p>
-      <div class="skills">
-        <div class="skillcol">
-          <h4>Data Engineering</h4>
-          <ul>
-            <li>dbt · Dagster</li>
-            <li>DuckDB · SQL Server</li>
-            <li>Medallion &amp; Kimball modeling</li>
-            <li>ELT &amp; orchestration</li>
-            <li>Data quality / testing</li>
-            <li>Power BI</li>
-          </ul>
-        </div>
-        <div class="skillcol">
-          <h4>Languages &amp; Tools</h4>
-          <ul>
-            <li>Python</li>
-            <li>SQL</li>
-            <li>R · tidyverse · tidymodels</li>
-            <li>pandas · Git &amp; GitHub</li>
-            <li>Quarto · Plotly</li>
-            <li>pdfplumber · reportlab</li>
-          </ul>
-        </div>
-        <div class="skillcol">
-          <h4>ML / AI</h4>
-          <ul>
-            <li>Applied machine learning</li>
-            <li>Supervised &amp; unsupervised</li>
-            <li>Statistical modeling (R &amp; Python)</li>
-            <li>Model evaluation &amp; calibration</li>
-            <li>scikit-learn · statsmodels</li>
-            <li>MIT Applied Data Science Program</li>
-          </ul>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>A tested bronze / silver / gold medallion with a Kimball star schema and a daily-grain <strong>SCD2</strong> dimension. The run-expectancy matrix (RE24) is rebuilt from scratch; the win-probability model is evaluated once on a <strong>sealed 2025 holdout</strong> and beats both baselines.</p>
+        <p>A separate <strong>live 2026 layer</strong> refreshes playoff odds nightly while the validated analysis stays frozen — surfaced in an audience-oriented dashboard with an honest, uncertainty-forward voice.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener">Live dashboard ↗</a>
+          <a href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/mlb-analytics#readme" target="_blank" rel="noopener">Decision log ↗</a>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="sig-wrap">
+        <div class="cyano">
+          <div class="panel-label">DWG QA-001 · parity gate</div>
+          <svg style="width:100%;height:auto;display:block;position:relative;z-index:1" viewBox="0 0 400 180" role="img" aria-label="Blueprint diagram of the R and Python parity gate">
+            <rect x="20" y="24" width="120" height="44" fill="none" stroke="#5FA0EC" stroke-width="1.2"/>
+            <text x="34" y="44" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">R engine</text>
+            <text x="34" y="60" font-family="monospace" font-size="9.5" fill="#84A6DC">tidymodels</text>
+            <rect x="20" y="108" width="120" height="44" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+            <text x="34" y="128" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">Python</text>
+            <text x="34" y="144" font-family="monospace" font-size="9.5" fill="#84A6DC">scikit-learn</text>
+            <path d="M140,46 C180,46 190,74 218,74" fill="none" stroke="#5FA0EC" stroke-width="1" opacity="0.7"/>
+            <path d="M140,130 C180,130 190,104 218,104" fill="none" stroke="#EFC75E" stroke-width="1" opacity="0.7"/>
+            <circle r="3.5" fill="#5FA0EC"><animateMotion dur="2.4s" repeatCount="indefinite" path="M140,46 C180,46 190,74 218,74"/></circle>
+            <circle r="3.5" fill="#EFC75E"><animateMotion dur="2.4s" repeatCount="indefinite" path="M140,130 C180,130 190,104 218,104"/></circle>
+            <rect x="218" y="66" width="66" height="46" fill="none" stroke="rgba(168,200,248,.5)" stroke-width="1"/>
+            <text x="251" y="86" font-family="monospace" font-size="10" fill="#A8C8F8" text-anchor="middle">diff</text>
+            <text x="251" y="101" font-family="monospace" font-size="11" fill="#A8C8F8" text-anchor="middle">≈</text>
+            <line x1="284" y1="89" x2="334" y2="89" stroke="rgba(168,200,248,.4)" stroke-width="1" stroke-dasharray="3 3"/>
+            <rect x="334" y="66" width="48" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+            <text x="358" y="93" font-family="monospace" font-size="11" fill="#7BE3A8" text-anchor="middle" font-weight="600">PASS</text>
+          </svg>
+        </div>
+      </div>
+    </div></div></div>
+  </div>
 
-  <!-- ABOUT -->
-  <section id="about" class="about">
-    <div class="wrap">
-      <div class="sec-head">Background</div>
-      <h2>About</h2>
-      <p>
-        I&rsquo;m a data engineer who likes the unglamorous parts: getting data out of awkward formats,
-        making transformations testable, and building the warehouse layer that analytics and ML actually
-        depend on. My recent work pairs solid engineering practice &mdash; medallion architecture,
-        dimensional modeling, data-quality testing &mdash; with applied machine learning from the
-        MIT Applied Data Science Program. I care about systems that are reproducible, well-tested, and
-        clear enough that the next person can trust and extend them.
-      </p>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="sec-head">Get in touch</div>
-      <h2>Contact</h2>
-      <p class="sub">Open to data engineering and ML/AI roles. The fastest way to reach me:</p>
-      <div class="contact-row">
-        <a class="btn primary" href="mailto:stevemarn27@gmail.com">stevemarn27@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/stephen-marn-361b08179/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn" href="https://github.com/Steve27M" target="_blank" rel="noopener">github.com/Steve27M ↗</a>
-        <a class="btn" href="assets/Stephen_Marn_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF) ↗</a>
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-02</div>
+        <div class="proj-title">
+          <h3>College-Football Analytics Pipeline</h3>
+          <p class="plain">Pulls college-football data from a public API, warehouses it with full history, and forecasts the 2026 season before it starts — with a win-probability model benchmarked against the betting market.</p>
+          <p class="techline">CFBD API → DuckDB → dbt (Kimball, SCD2) → tidymodels + scikit-learn → Quarto dashboard</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/cfb-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="cfb-analytics last commit" loading="lazy" />
+            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Conference realignment quietly breaks naive team dimensions — SCD2 tracks who played where, when. Why team history is a schema problem, not a lookup table →</p>
+        </div>
+        <div class="proj-toggle">+</div>
       </div>
     </div>
-  </section>
-</main>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Ingests the CollegeFootballData API plus an ethically web-scraped source into a tested medallion. Implements the models from <em>Football Analytics with Python &amp; R</em> in <strong>both languages</strong> behind a committed <strong>R↔Python parity check</strong>.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/cfb-analytics/" target="_blank" rel="noopener">Live dashboard ↗</a>
+          <a href="https://github.com/Steve27M/cfb-analytics" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/cfb-analytics#readme" target="_blank" rel="noopener">Case study ↗</a>
+        </div>
+      </div>
+      <div><p class="side-note">Benchmark target: the betting market. Preseason predictions committed in public — checkable after the fact.</p></div>
+    </div></div></div>
+  </div>
 
-<footer>
-  <div class="wrap footer-row">
-    <span>© <span id="yr">2026</span> Stephen Marn</span>
-    <span>Built as a static site on GitHub Pages.</span>
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-03</div>
+        <div class="proj-title">
+          <h3>Live Flight Telemetry Pipeline</h3>
+          <p class="plain">Ingests real, live aircraft positions from the OpenSky Network — a source that moves, rate-limits you, and never stops — and warehouses them into a queryable star schema with a live air-traffic map.</p>
+          <p class="techline">OpenSky API (ADS-B) → incremental polling → DuckDB → dbt (Kimball) → map</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/opensky-flight-pipeline?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="opensky-flight-pipeline last commit" loading="lazy" />
+            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>The source is live and hostile to polling — why the landing zone is append-only, retries are deliberately boring, and losing a poll is designed to be a non-event →</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Demonstrates production-grade <strong>API ingestion</strong> — incremental polling, rate-limit &amp; retry handling, immutable landing with lineage — on a real, moving source rather than a static CSV.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://github.com/Steve27M/opensky-flight-pipeline#readme" target="_blank" rel="noopener">Code &amp; dashboard ↗</a>
+        </div>
+      </div>
+      <div><p class="side-note">Geospatial + time-series on genuinely live telemetry — the same ingestion problems sensor fleets create.</p></div>
+    </div></div></div>
+  </div>
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-04</div>
+        <div class="proj-title">
+          <h3>Manufacturing PDF → Warehouse</h3>
+          <p class="plain">Turns a plant's daily PDF production reports — a format built for humans, not machines — into a tested analytics warehouse and interactive dashboard.</p>
+          <p class="techline">PDF (pdfplumber) → Dagster → dbt medallion → DuckDB (Kimball) → dashboard</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/manufacturing-pdf-etl?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="manufacturing-pdf-etl last commit" loading="lazy" />
+            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Bad rows don't fail the pipeline and don't vanish — they're quarantined with lineage. Why silent drops are the real bug, and failure-on-anomaly is a design smell →</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Append-only lineage, a <strong>quarantine for bad rows</strong>, source-freshness &amp; relationship tests, and architecture <strong>"fitness functions."</strong> All data is synthetic and generated from scratch — nothing derived from employer work.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener">Live dashboard ↗</a>
+          <a href="https://github.com/Steve27M/manufacturing-pdf-etl" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/manufacturing-pdf-etl#readme" target="_blank" rel="noopener">Case study ↗</a>
+        </div>
+      </div>
+      <div><p class="side-note">The same shape as real plant reporting problems — solved entirely in public with synthetic data.</p></div>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ============ CURRENTLY BUILDING ============ -->
+<section id="building" class="wrap rv">
+  <div class="section-head"><span class="num">SHT 03</span><h2>Currently building</h2><span class="meta">trajectory</span></div>
+  <div class="building">
+    <div class="row"><span class="tag">HELIOSENTINEL</span><span class="desc"><b>AI-in-the-loop telemetry pipeline</b> — anomaly triage with a model in the operational path.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
+    <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
+    <div class="row"><span class="tag">FACTORYSTREAM</span><span class="desc"><b>Streaming lakehouse on AWS</b>, Terraform-provisioned end to end.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
+    <div class="row"><span class="tag">AWS CERT</span><span class="desc">AWS certification — listed here until earned, on the About section after.</span><span class="eta">in progress</span></div>
+  </div>
+</section>
+
+<!-- Writing section hidden until a post exists (spec rule). Seeds: parity gate (mlb) · SCD2 realignment (cfb). -->
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="wrap rv">
+  <div class="section-head"><span class="num">SHT 04</span><h2>Skills</h2><span class="meta">only tools the systems above use</span></div>
+  <!-- Standing rule: a tool appears here only if a project above uses it. -->
+  <div class="cap-grid">
+    <div class="cap"><h3>Data Engineering</h3><ul>
+      <li>dbt</li><li>Dagster</li><li>DuckDB</li><li>Medallion architecture</li><li>Kimball modeling</li><li>SCD2</li><li>ELT / orchestration</li><li>Data quality / testing</li><li>GitHub Actions CI</li>
+    </ul></div>
+    <div class="cap"><h3>Languages &amp; Tools</h3><ul>
+      <li>Python</li><li>SQL</li><li>R</li><li>tidyverse</li><li>tidymodels</li><li>pandas</li><li>Git &amp; GitHub</li><li>Quarto</li><li>Plotly</li><li>pdfplumber</li>
+    </ul></div>
+    <div class="cap"><h3>ML / Statistics</h3><ul>
+      <li>Statistical modeling (R &amp; Py)</li><li>Supervised ML</li><li>Model eval &amp; calibration</li><li>scikit-learn</li><li>Holdout / benchmark design</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="wrap rv">
+  <div class="section-head"><span class="num">SHT 05</span><h2>About</h2><span class="meta">background</span></div>
+  <div class="about-grid">
+    <div>
+      <p>I'm a data engineer who likes the unglamorous parts: getting data out of awkward formats, making transformations <strong>testable</strong>, and building the warehouse layer that analytics and ML actually depend on.</p>
+      <p>I care about systems that are <strong>reproducible, well-tested, and clear enough that the next person can trust and extend them.</strong></p>
+      <div class="cred">Credential — MIT Applied Data Science Program: <a href="https://steve27m.github.io/mit-applied-data-science/" target="_blank" rel="noopener">31-project coursework portfolio →</a></div>
+      <!-- AWS certification line: add when earned, not before. -->
+    </div>
+    <div class="cyano">
+      <div class="panel-label">DWG DM-001 · Kimball star schema</div>
+      <div style="padding:14px;position:relative;z-index:1">
+        <svg viewBox="0 0 320 240" style="width:100%;height:auto;display:block" id="starsvg" role="img" aria-label="Blueprint star schema: fact table with six dimensions"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-head" style="border:none;margin-bottom:16px"><span class="num">SHT 06</span><h2>Contact</h2><span class="meta">serve layer</span></div>
+    <div class="foot-grid">
+      <div>
+        <p class="foot-note">Every claim above is publicly verifiable. If it can't be checked in two clicks, it isn't on this page.</p>
+        <div class="foot-ctas">
+          <a class="btn primary" href="https://steve27m.github.io/assets/Stephen_Marn_Resume.pdf" target="_blank" rel="noopener">Resume (PDF) ↗</a>
+          <a class="btn ghost" href="https://github.com/Steve27M" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/stephen-marn-361b08179/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn ghost" href="mailto:stevemarn27@gmail.com">Email</a>
+        </div>
+      </div>
+      <div class="tb-foot" aria-hidden="true">
+        <div class="tb-head">TITLE BLOCK</div>
+        <div class="row"><span>PROJECT</span><b>steve27m.github.io</b></div>
+        <div class="row"><span>CONTACT</span><b>stevemarn27@gmail.com</b></div>
+        <div class="row"><span>REV DATE</span><b>2026-07-10</b></div>
+        <div class="row"><span>NOTES</span><b>static · no trackers</b></div>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <a href="#top">↑ back to top</a>
+      <span>© 2026 Stephen Marn</span>
+    </div>
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* scroll progress line */
+(function(){
+  const bar=document.getElementById('progress');
+  function u(){const t=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(Math.min(1,Math.max(0,scrollY/t))*100)+'%';}
+  u(); addEventListener('scroll',u,{passive:true}); addEventListener('resize',u);
+})();
+
+/* scroll reveal */
+(function(){
+  if(RM){document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:0.12});
+  document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+})();
+
+/* project cards */
+document.querySelectorAll('[data-proj]').forEach(c=>{
+  const head=c.querySelector('.proj-head');
+  head.addEventListener('click',e=>{ if(e.target.closest('a'))return; c.classList.toggle('open'); });
+  head.setAttribute('tabindex','0'); head.setAttribute('role','button');
+  head.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('a')){e.preventDefault();c.classList.toggle('open');}});
+});
+
+/* star schema — cyanotype linework */
+(function(){
+  const svg=document.getElementById('starsvg'); if(!svg)return;
+  const cx=160, cy=120;
+  const dims=[
+    {x:160,y:34,l:'dim_date'},{x:278,y:72,l:'dim_team'},
+    {x:278,y:168,l:'dim_player'},{x:160,y:206,l:'dim_game'},
+    {x:42,y:168,l:'dim_venue'},{x:42,y:72,l:'dim_pitch'}
+  ];
+  let lines='',boxes='',pulses='';
+  dims.forEach((d,i)=>{
+    lines+='<line x1="'+cx+'" y1="'+cy+'" x2="'+d.x+'" y2="'+d.y+'" stroke="rgba(168,200,248,.35)" stroke-width="1" stroke-dasharray="3 3"/>';
+    boxes+='<rect x="'+(d.x-38)+'" y="'+(d.y-13)+'" width="76" height="26" fill="none" stroke="#A8C8F8" stroke-width="1"/>'+
+           '<text x="'+d.x+'" y="'+(d.y+4)+'" font-family="monospace" font-size="10" fill="#DCE9FC" text-anchor="middle">'+d.l+'</text>';
+    if(!RM){
+      pulses+='<circle r="2.6" fill="#EFC75E" opacity="0"><animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="'+(i*0.5)+'s" repeatCount="indefinite"/><animateMotion dur="3s" begin="'+(i*0.5)+'s" repeatCount="indefinite" path="M'+d.x+','+d.y+' L'+cx+','+cy+'"/></circle>';
+    }
+  });
+  const fact='<rect x="'+(cx-44)+'" y="'+(cy-20)+'" width="88" height="40" fill="none" stroke="#EFC75E" stroke-width="1.4"/>'+
+             '<text x="'+cx+'" y="'+(cy-2)+'" font-family="monospace" font-size="11" fill="#EFC75E" text-anchor="middle" font-weight="600">fact</text>'+
+             '<text x="'+cx+'" y="'+(cy+12)+'" font-family="monospace" font-size="9" fill="#A8C8F8" text-anchor="middle">grain: 1 row</text>';
+  svg.innerHTML=lines+pulses+boxes+fact;
+})();
+</script>
 </body>
 </html>
