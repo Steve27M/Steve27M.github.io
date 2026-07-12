@@ -464,13 +464,65 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div><p class="side-note">The same shape as real plant reporting problems — solved entirely in public with synthetic data.</p></div>
     </div></div></div>
   </div>
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-05</div>
+        <div class="proj-title">
+          <h3>HelioSentinel — Space-Weather Pipeline with an AI Narration Layer</h3>
+          <p class="plain">Continuously ingests real solar-wind, proton-flux, event, and satellite data, flags dangerous conditions with deterministic rules, and uses a local language model to turn each anomaly into a plain-English incident report — graded against NASA's official event log.</p>
+          <p class="techline">NOAA · NASA · CelesTrak APIs → DuckDB → deterministic detector → local LLM (schema-validated) → eval harness / CI gate → FastAPI 3D console</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/heliosentinel?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="heliosentinel last commit" loading="lazy" onerror="this.remove()" />
+            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates · links live after HelioSentinel is pushed</span></span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>The model never decides <em>whether</em> something happened — deterministic rules do; the LLM only describes and structures <em>what</em> happened. Why the model is kept out of the detection path →</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Source connectors sit behind one plugin interface with strict rate-policy compliance; the deterministic detector is a set of reusable <strong>DuckDB window queries</strong> (same SQL for backtest and live). The local LLM's output is <strong>schema-validated with retry-on-error and failure quarantine</strong> — malformed output never reaches the store. A hand-labeled golden set plus DONKI correlation gate every prompt change in CI; one documented iteration moved severity accuracy from <strong>37% to 83%</strong>.</p>
+        <p>The operator console is a live <strong>3D geospace situation display</strong>: Earth's magnetopause compresses from real solar-wind pressure and satellites are SGP4-propagated from real orbital elements — with every panel labeled <strong>LIVE</strong> (real physics / telemetry) or <strong>ILLUSTRATIVE</strong> (decorative).</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/heliosentinel/" target="_blank" rel="noopener">Showcase ↗</a>
+          <a href="https://github.com/Steve27M/heliosentinel" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/heliosentinel#readme" target="_blank" rel="noopener">Decision log ↗</a>
+        </div>
+      </div>
+      <div class="sig-wrap">
+        <div class="cyano">
+          <div class="panel-label">DWG AI-001 · detect / narrate split</div>
+          <svg style="width:100%;height:auto;display:block;position:relative;z-index:1" viewBox="0 0 400 176" role="img" aria-label="Blueprint: a deterministic detector feeds the LLM narrator, whose output passes a schema gate or is quarantined">
+            <text x="70" y="44" font-family="monospace" font-size="9.5" fill="#A8C8F8" text-anchor="middle">decides IF</text>
+            <text x="220" y="44" font-family="monospace" font-size="9.5" fill="#D9925F" text-anchor="middle">describes WHAT</text>
+            <text x="350" y="44" font-family="monospace" font-size="9.5" fill="#7BE3A8" text-anchor="middle">gate / quarantine</text>
+            <rect x="18" y="66" width="104" height="48" fill="none" stroke="#5FA0EC" stroke-width="1.2"/>
+            <text x="70" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">DETECTOR</text>
+            <text x="70" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">rules · SQL</text>
+            <path d="M122,90 H168" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle r="3.2" fill="#5FA0EC"><animateMotion dur="2.6s" repeatCount="indefinite" path="M122,90 H168"/></circle>
+            <rect x="168" y="66" width="104" height="48" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+            <text x="220" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">LLM NARRATE</text>
+            <text x="220" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">local · describes</text>
+            <path d="M272,90 H318" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle r="3.2" fill="#EFC75E"><animateMotion dur="2.6s" repeatCount="indefinite" path="M272,90 H318"/></circle>
+            <rect x="318" y="66" width="64" height="48" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+            <text x="350" y="86" font-family="monospace" font-size="10" fill="#7BE3A8" text-anchor="middle" font-weight="600">SCHEMA</text>
+            <text x="350" y="102" font-family="monospace" font-size="12" fill="#7BE3A8" text-anchor="middle">✓</text>
+          </svg>
+        </div>
+      </div>
+    </div></div></div>
+  </div>
 </section>
 
 <!-- ============ CURRENTLY BUILDING ============ -->
 <section id="building" class="wrap rv">
   <div class="section-head"><span class="num">SHT 03</span><h2>Currently building</h2><span class="meta">trajectory</span></div>
   <div class="building">
-    <div class="row"><span class="tag">HELIOSENTINEL</span><span class="desc"><b>AI-in-the-loop telemetry pipeline</b> — anomaly triage with a model in the operational path.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
     <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
     <div class="row"><span class="tag">FACTORYSTREAM</span><span class="desc"><b>Streaming lakehouse on AWS</b>, Terraform-provisioned end to end.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
     <div class="row"><span class="tag">AWS CERT</span><span class="desc">AWS certification — listed here until earned, on the About section after.</span><span class="eta">in progress</span></div>
@@ -488,10 +540,10 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <li>dbt</li><li>Dagster</li><li>DuckDB</li><li>Medallion architecture</li><li>Kimball modeling</li><li>SCD2</li><li>ELT / orchestration</li><li>Data quality / testing</li><li>GitHub Actions CI</li>
     </ul></div>
     <div class="cap"><h3>Languages &amp; Tools</h3><ul>
-      <li>Python</li><li>SQL</li><li>R</li><li>tidyverse</li><li>tidymodels</li><li>pandas</li><li>Git &amp; GitHub</li><li>Quarto</li><li>Plotly</li><li>pdfplumber</li>
+      <li>Python</li><li>SQL</li><li>R</li><li>tidyverse</li><li>tidymodels</li><li>pandas</li><li>Git &amp; GitHub</li><li>Quarto</li><li>Plotly</li><li>pdfplumber</li><li>FastAPI</li><li>Pydantic</li>
     </ul></div>
     <div class="cap"><h3>ML / Statistics</h3><ul>
-      <li>Statistical modeling (R &amp; Py)</li><li>Supervised ML</li><li>Model eval &amp; calibration</li><li>scikit-learn</li><li>Holdout / benchmark design</li>
+      <li>Statistical modeling (R &amp; Py)</li><li>Supervised ML</li><li>Model eval &amp; calibration</li><li>scikit-learn</li><li>Holdout / benchmark design</li><li>Local LLM (Ollama)</li><li>LLM eval &amp; prompt gating</li>
     </ul></div>
   </div>
 </section>
