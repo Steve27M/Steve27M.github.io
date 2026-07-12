@@ -59,9 +59,6 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-f
 .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
 .rv.in{opacity:1;transform:none}
 
-/* redline = approval-required markup */
-.redline{color:var(--redline);border:1px dashed var(--redline);padding:1px 8px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;background:rgba(196,60,46,.05)}
-
 /* ============ HERO ============ */
 .hero{padding:44px 0 40px;display:flex;flex-direction:column}
 .hero-top{display:flex;gap:30px;align-items:flex-start;justify-content:space-between}
@@ -129,7 +126,6 @@ section{padding:74px 0}
 .context-card p{color:var(--ink);font-size:16.5px;line-height:1.7}
 .reframe{margin-top:18px;padding:16px 20px;border-left:3px solid var(--cobalt);background:#EFF4FC;font-size:15px;line-height:1.65;color:var(--ink-2)}
 .reframe b{color:var(--ink)}
-.approval-flag{display:inline-block;margin-bottom:12px}
 
 /* project cards */
 .proj{border:1px solid var(--hairline);background:var(--card);margin-bottom:16px;overflow:hidden;transition:border-color .2s,box-shadow .2s;box-shadow:0 2px 10px rgba(21,34,56,.04)}
@@ -175,7 +171,7 @@ section{padding:74px 0}
 @media(max-width:640px){.building .row{grid-template-columns:1fr}}
 
 /* skills */
-.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
 .cap{background:var(--card);padding:22px;border:1px solid var(--hairline);box-shadow:0 2px 10px rgba(21,34,56,.04)}
 .cap h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hairline)}
 .cap ul{list-style:none;display:flex;flex-wrap:wrap;gap:7px}
@@ -247,7 +243,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="tb-head">TITLE BLOCK</div>
       <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
       <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
-      <div class="row"><span>REV</span><b>D · 2026-07-12</b></div>
+      <div class="row"><span>REV</span><b>E · 2026-07-12</b></div>
       <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
       <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
     </div>
@@ -314,8 +310,6 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
 <section id="context" class="wrap rv">
   <div class="section-head"><span class="num">SHT 01</span><h2>What I do</h2><span class="meta">day job · then the reframe</span></div>
   <div class="context-card">
-    <!-- [STEPHEN: APPROVAL REQUIRED] day-job paragraph. Spec's own draft, verbatim. Model must not expand it. -->
-    <span class="redline approval-flag">REDLINE: draft pending Stephen's approval</span>
     <p>By day I build and operate the data platform at a manufacturing company: orchestrated warehousing, automated ingestion from operational systems, and predictive models in daily use by operations and management.</p>
     <div class="reframe">That work is proprietary, so everything below is <b>personal work built and run in public</b>, where you can understand my thought processes and decisions.</div>
   </div>
@@ -671,8 +665,8 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
 <section id="building" class="wrap rv">
   <div class="section-head"><span class="num">SHT 03</span><h2>Currently building</h2><span class="meta">trajectory</span></div>
   <div class="building">
-    <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
-    <div class="row"><span class="tag">FACTORYSTREAM</span><span class="desc"><b>Streaming lakehouse on AWS</b>, Terraform-provisioned end to end.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
+    <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: 2026</span></div>
+    <div class="row"><span class="tag">FACTORYSTREAM</span><span class="desc"><b>Streaming lakehouse on AWS</b>, Terraform-provisioned end to end.</span><span class="eta">target: 2026</span></div>
     <div class="row"><span class="tag">AWS CERT</span><span class="desc">AWS certification, listed here until earned, on the About section after.</span><span class="eta">in progress</span></div>
   </div>
 </section>
@@ -681,8 +675,8 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
 
 <!-- ============ SKILLS ============ -->
 <section id="skills" class="wrap rv">
-  <div class="section-head"><span class="num">SHT 04</span><h2>Skills</h2><span class="meta">only tools the systems above use</span></div>
-  <!-- Standing rule: a tool appears here only if a project above uses it. -->
+  <div class="section-head"><span class="num">SHT 04</span><h2>Skills</h2><span class="meta">tools my public systems + MIT portfolio use</span></div>
+  <!-- Standing rule: a tool appears here only if a public project uses it: a system above, or the linked MIT ADSP portfolio. -->
   <div class="cap-grid">
     <div class="cap"><h3>Data Engineering</h3><ul>
       <li>dbt</li><li>Dagster</li><li>DuckDB</li><li>Medallion architecture</li><li>Kimball modeling</li><li>SCD2</li><li>ELT / orchestration</li><li>Data quality / testing</li><li>GitHub Actions CI</li>
@@ -691,7 +685,10 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <li>Python</li><li>SQL</li><li>R</li><li>tidyverse</li><li>tidymodels</li><li>pandas</li><li>Git &amp; GitHub</li><li>Quarto</li><li>Plotly</li><li>pdfplumber</li><li>FastAPI</li><li>Pydantic</li>
     </ul></div>
     <div class="cap"><h3>ML / Statistics</h3><ul>
-      <li>Statistical modeling (R &amp; Py)</li><li>Supervised ML</li><li>Model eval &amp; calibration</li><li>scikit-learn</li><li>Holdout / benchmark design</li><li>Local LLM (Ollama)</li><li>LLM eval &amp; prompt gating</li>
+      <li>Statistical modeling (R &amp; Py)</li><li>Supervised ML</li><li>scikit-learn</li><li>XGBoost</li><li>Random forests</li><li>Gradient boosting</li><li>Model eval &amp; calibration</li><li>Holdout / benchmark design</li>
+    </ul></div>
+    <div class="cap"><h3>AI / LLM</h3><ul>
+      <li>Local LLM (Ollama)</li><li>Schema-validated generation</li><li>Prompt eval &amp; CI gating</li><li>Retry / quarantine on bad output</li><li>TensorFlow / Keras</li><li>PyTorch</li><li>Deep learning (CNNs, GNNs)</li>
     </ul></div>
   </div>
 </section>
