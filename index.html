@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Stephen Marn — Senior Data Engineer</title>
-<meta name="description" content="Stephen Marn, Senior Data Engineer. I don't just build pipelines — I operate them, in public, and you can watch. Live dashboards, nightly CI, verifiable claims." />
-<meta property="og:title" content="Stephen Marn — Senior Data Engineer" />
+<title>Stephen Marn, Senior Data Engineer</title>
+<meta name="description" content="Stephen Marn, Senior Data Engineer. I don't just build pipelines. I operate them, in public, and you can watch. Live dashboards, nightly CI, verifiable claims." />
+<meta property="og:title" content="Stephen Marn, Senior Data Engineer" />
 <meta property="og:description" content="Systems I run in public: tested medallion warehouses, parity-gated models, live dashboards." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://steve27m.github.io/" />
@@ -27,7 +27,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-/* drafting grid: fine lines, heavier every 5th — quiet */
+/* drafting grid: fine lines, heavier every 5th; quiet */
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
     linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
@@ -63,7 +63,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-f
 .redline{color:var(--redline);border:1px dashed var(--redline);padding:1px 8px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;background:rgba(196,60,46,.05)}
 
 /* ============ HERO ============ */
-.hero{padding:44px 0 34px;min-height:calc(100vh - 60px);display:flex;flex-direction:column}
+.hero{padding:44px 0 40px;display:flex;flex-direction:column}
 .hero-top{display:flex;gap:30px;align-items:flex-start;justify-content:space-between}
 .hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .hero .eyebrow::before{content:"";width:26px;height:1px;background:var(--cobalt)}
@@ -73,7 +73,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-f
 .status-line{margin-top:14px;font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .status-line .dot{width:8px;height:8px;background:#2FA262;border-radius:50%}
 
-/* title block — the signature */
+/* title block: the signature */
 .title-block{border:1.5px solid var(--ink);background:var(--card);font-family:var(--mono);font-size:10.5px;min-width:230px;box-shadow:4px 4px 0 rgba(21,34,56,.08)}
 .title-block .tb-head{padding:8px 12px;border-bottom:1.5px solid var(--ink);font-weight:600;letter-spacing:.08em}
 .title-block .row{display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--hairline)}
@@ -98,7 +98,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-f
 .btn.primary:hover{background:var(--cobalt-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,79,188,.25)}
 .btn.ghost:hover{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-2px)}
 
-.proof-claim{margin-top:auto;padding-top:26px;font-size:14.5px;color:var(--ink-2)}
+.proof-claim{margin-top:34px;padding-top:26px;font-size:14.5px;color:var(--ink-2)}
 .proof-claim b{color:var(--ink)}
 
 /* cyanotype blueprint panel (pinned drawing) */
@@ -110,6 +110,11 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,247,250,.88);backdrop-f
 .pipeline{margin-top:26px}
 .pipe-body{padding:20px 18px 8px;position:relative;z-index:1}
 .pipe-svg{width:100%;height:auto;display:block}
+
+/* per-card pipeline schematic */
+.flowstrip{margin-top:16px}
+.flowstrip .panel-label{padding:9px 14px}
+.flowstrip .pipe-body{padding:14px 14px 6px}
 
 /* sections */
 section{padding:74px 0}
@@ -231,19 +236,18 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="eyebrow li d1">Portfolio · systems run in public</div>
       <p class="name li d2">Stephen Marn</p>
       <h1 class="li d2">Senior Data Engineer</h1>
-      <p class="tagline li d3">I turn messy operational data into systems people trust.</p>
-      <!-- [STEPHEN — APPROVAL REQUIRED] status line: do not invent values -->
+      <p class="tagline li d3">I turn operational complexity into data systems that anyone can trust and act on.</p>
+      <!-- status line: approved values -->
       <div class="status-line li d3">
         <span class="dot"></span>
-        <span>&lt;City, ST&gt; · &lt;remote stance&gt; · &lt;availability&gt;</span>
-        <span class="redline">REDLINE — approve status line</span>
+        <span>Raleigh-Durham-Chapel Hill, North Carolina · Open to remote, prefer full onsite · Available</span>
       </div>
     </div>
     <div class="title-block li d2" aria-hidden="true">
       <div class="tb-head">TITLE BLOCK</div>
       <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
       <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
-      <div class="row"><span>REV</span><b>C · 2026-07-10</b></div>
+      <div class="row"><span>REV</span><b>D · 2026-07-12</b></div>
       <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
       <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
     </div>
@@ -274,7 +278,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     <a class="btn ghost" href="mailto:stevemarn27@gmail.com">Email</a>
   </div>
 
-  <p class="proof-claim li d5">I don't just build pipelines — <b>I operate them, in public, and you can watch.</b></p>
+  <p class="proof-claim li d5">I don't just build pipelines. <b>I operate them, in public, and you can watch.</b></p>
 </header>
 
 <!-- pinned blueprint: medallion drawing -->
@@ -310,33 +314,143 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
 <section id="context" class="wrap rv">
   <div class="section-head"><span class="num">SHT 01</span><h2>What I do</h2><span class="meta">day job · then the reframe</span></div>
   <div class="context-card">
-    <!-- [STEPHEN — APPROVAL REQUIRED] day-job paragraph. Spec's own draft, verbatim. Model must not expand it. -->
-    <span class="redline approval-flag">REDLINE — draft pending Stephen's approval</span>
-    <p>By day I build and operate the data platform at a manufacturing company — orchestrated warehousing, automated ingestion from operational systems, and predictive models in daily use by operations and management.</p>
-    <div class="reframe">That work is proprietary, so everything below is <b>personal work built and run in public</b> — the same patterns, where you can inspect every decision.</div>
+    <!-- [STEPHEN: APPROVAL REQUIRED] day-job paragraph. Spec's own draft, verbatim. Model must not expand it. -->
+    <span class="redline approval-flag">REDLINE: draft pending Stephen's approval</span>
+    <p>By day I build and operate the data platform at a manufacturing company: orchestrated warehousing, automated ingestion from operational systems, and predictive models in daily use by operations and management.</p>
+    <div class="reframe">That work is proprietary, so everything below is <b>personal work built and run in public</b>, where you can understand my thought processes and decisions.</div>
   </div>
 </section>
 
 <!-- ============ SYSTEMS ============ -->
 <section id="work" class="wrap">
   <div class="section-head rv"><span class="num">SHT 02</span><h2>Systems I run in public</h2><span class="meta">ordered by operated, not recent</span></div>
-  <p class="lead-line rv">Every claim on these cards resolves to public evidence — a repo, a workflow history, a dashboard — in two clicks or fewer.</p>
+  <p class="lead-line rv">Every claim on these cards resolves to public evidence (a repo, a workflow history, a dashboard) in two clicks or fewer.</p>
 
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
         <div class="proj-id">SYS-01</div>
         <div class="proj-title">
-          <h3>MLB Analytics Pipeline</h3>
-          <p class="plain">Takes 2.18M raw baseball pitch records and turns them into 13 statistical models and a live dashboard — rebuilt from scratch every night, automatically, with the build refusing to ship if any check fails.</p>
-          <p class="techline">Statcast → DuckDB → dbt (Kimball, SCD2) → R + Python models → static dashboard</p>
-          <div class="status-row">
-            <!-- TODO Phase 3: workflow badge once filename confirmed -->
-            <img src="https://img.shields.io/github/last-commit/Steve27M/mlb-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="mlb-analytics last commit" loading="lazy" />
-            <img src="https://img.shields.io/github/actions/workflow/status/Steve27M/mlb-analytics/nightly.yml?label=nightly%20run&labelColor=EFF4FC&style=flat-square" alt="nightly workflow status (confirm filename)" loading="lazy" onerror="this.remove()" />
-            <span class="dates">Built &lt;mon yyyy&gt; · running since &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+          <h3>HelioSentinel: Space-Weather Pipeline with an AI Narration Layer</h3>
+          <p class="plain">Continuously ingests real solar-wind, proton-flux, event, and satellite data, flags dangerous conditions with deterministic rules, and uses a local language model to turn each anomaly into a plain-English incident report, graded against NASA's official event log.</p>
+          <p class="techline">NOAA · NASA · CelesTrak APIs → DuckDB → deterministic detector → local LLM (schema-validated) → eval harness / CI gate → FastAPI 3D console</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-001 · space-weather detect → narrate <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: space APIs to store to detector to LLM narration to 3D console">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">space APIs</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">NOAA·NASA·CelesTrak</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">STORE</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">immutable landing</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">DETECT</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">rules · SQL</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">deterministic</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">NARRATE</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">local LLM</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">schema-validated</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">SERVE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">3D console</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">eval-gated in CI</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
           </div>
-          <p class="decision"><b>Hardest decision</b>Every model is implemented twice — once in R, once in Python — and deployment is blocked unless both agree. Here's why the duplication is the feature →</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/heliosentinel?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="heliosentinel last commit" loading="lazy" onerror="this.remove()" />
+            <span class="dates">On GitHub since 2026-07-12</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>The model never decides <em>whether</em> something happened; deterministic rules do. The LLM only describes and structures <em>what</em> happened. Why the model is kept out of the detection path →</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Source connectors sit behind one plugin interface with strict rate-policy compliance; the deterministic detector is a set of reusable <strong>DuckDB window queries</strong> (same SQL for backtest and live). The local LLM's output is <strong>schema-validated with retry-on-error and failure quarantine</strong>, so malformed output never reaches the store. A hand-labeled golden set plus DONKI correlation gate every prompt change in CI; one documented iteration moved severity accuracy from <strong>37% to 83%</strong>.</p>
+        <p>The operator console is a live <strong>3D geospace situation display</strong>: Earth's magnetopause compresses from real solar-wind pressure and satellites are SGP4-propagated from real orbital elements, with every panel labeled <strong>LIVE</strong> (real physics / telemetry) or <strong>ILLUSTRATIVE</strong> (decorative).</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/heliosentinel/" target="_blank" rel="noopener">Showcase ↗</a>
+          <a href="https://github.com/Steve27M/heliosentinel" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/heliosentinel#readme" target="_blank" rel="noopener">Decision log ↗</a>
+        </div>
+      </div>
+      <div class="sig-wrap">
+        <div class="cyano">
+          <div class="panel-label">DWG AI-001 · detect / narrate split</div>
+          <svg style="width:100%;height:auto;display:block;position:relative;z-index:1" viewBox="0 0 400 176" role="img" aria-label="Blueprint: a deterministic detector feeds the LLM narrator, whose output passes a schema gate or is quarantined">
+            <text x="70" y="44" font-family="monospace" font-size="9.5" fill="#A8C8F8" text-anchor="middle">decides IF</text>
+            <text x="220" y="44" font-family="monospace" font-size="9.5" fill="#D9925F" text-anchor="middle">describes WHAT</text>
+            <text x="350" y="44" font-family="monospace" font-size="9.5" fill="#7BE3A8" text-anchor="middle">gate / quarantine</text>
+            <rect x="18" y="66" width="104" height="48" fill="none" stroke="#5FA0EC" stroke-width="1.2"/>
+            <text x="70" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">DETECTOR</text>
+            <text x="70" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">rules · SQL</text>
+            <path d="M122,90 H168" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle r="3.2" fill="#5FA0EC"><animateMotion dur="2.6s" repeatCount="indefinite" path="M122,90 H168"/></circle>
+            <rect x="168" y="66" width="104" height="48" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+            <text x="220" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">LLM NARRATE</text>
+            <text x="220" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">local · describes</text>
+            <path d="M272,90 H318" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle r="3.2" fill="#EFC75E"><animateMotion dur="2.6s" repeatCount="indefinite" path="M272,90 H318"/></circle>
+            <rect x="318" y="66" width="64" height="48" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+            <text x="350" y="86" font-family="monospace" font-size="10" fill="#7BE3A8" text-anchor="middle" font-weight="600">SCHEMA</text>
+            <text x="350" y="102" font-family="monospace" font-size="12" fill="#7BE3A8" text-anchor="middle">✓</text>
+          </svg>
+        </div>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-02</div>
+        <div class="proj-title">
+          <h3>MLB Analytics Pipeline</h3>
+          <p class="plain">Takes 2.18M raw baseball pitch records and turns them into 13 statistical models and a live dashboard, rebuilt from scratch every night, automatically, with the build refusing to ship if any check fails.</p>
+          <p class="techline">Statcast → DuckDB → dbt (Kimball, SCD2) → R + Python models → static dashboard</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-002 · Statcast → parity-gated models <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: Statcast source to DuckDB to dbt models to R Python parity gate to dashboard">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">Statcast</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">2.18M pitches</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">STORE</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">raw landing</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">MODEL</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dbt · Kimball</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">SCD2 star</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">PARITY</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">R + Python</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">both must agree</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">SERVE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dashboard</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">rebuilt nightly</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/mlb-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="mlb-analytics last commit" loading="lazy" />
+            <img src="https://img.shields.io/github/actions/workflow/status/Steve27M/mlb-analytics/nightly.yml?label=nightly%20run&labelColor=EFF4FC&style=flat-square" alt="nightly workflow status" loading="lazy" onerror="this.remove()" />
+            <span class="dates">On GitHub since 2026-07-04</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Every model is implemented twice (once in R, once in Python) and deployment is blocked unless both agree. Here's why the duplication is the feature →</p>
         </div>
         <div class="proj-toggle">+</div>
       </div>
@@ -344,7 +458,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
       <div>
         <p>A tested bronze / silver / gold medallion with a Kimball star schema and a daily-grain <strong>SCD2</strong> dimension. The run-expectancy matrix (RE24) is rebuilt from scratch; the win-probability model is evaluated once on a <strong>sealed 2025 holdout</strong> and beats both baselines.</p>
-        <p>A separate <strong>live 2026 layer</strong> refreshes playoff odds nightly while the validated analysis stays frozen — surfaced in an audience-oriented dashboard with an honest, uncertainty-forward voice.</p>
+        <p>A separate <strong>live 2026 layer</strong> refreshes playoff odds nightly while the validated analysis stays frozen, surfaced in an audience-oriented dashboard with an honest, uncertainty-forward voice.</p>
         <div class="proj-links">
           <a class="primary" href="https://steve27m.github.io/mlb-analytics/" target="_blank" rel="noopener">Live dashboard ↗</a>
           <a href="https://github.com/Steve27M/mlb-analytics" target="_blank" rel="noopener">Code ↗</a>
@@ -380,16 +494,45 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-02</div>
+        <div class="proj-id">SYS-03</div>
         <div class="proj-title">
           <h3>College-Football Analytics Pipeline</h3>
-          <p class="plain">Pulls college-football data from a public API, warehouses it with full history, and forecasts the 2026 season before it starts — with a win-probability model benchmarked against the betting market.</p>
+          <p class="plain">Pulls college-football data from a public API, warehouses it with full history, and forecasts the 2026 season before it starts, with a win-probability model benchmarked against the betting market.</p>
           <p class="techline">CFBD API → DuckDB → dbt (Kimball, SCD2) → tidymodels + scikit-learn → Quarto dashboard</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-003 · CFBD → parity-gated forecasts <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: CFBD API to DuckDB to dbt models to R Python parity gate to Quarto dashboard">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">CFBD API</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">+ ethical scrape</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">STORE</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">full history</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">MODEL</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dbt · Kimball</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">SCD2 star</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">PARITY</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">R ↔ Python</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">tidymodels · sklearn</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">SERVE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">Quarto</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">preseason picks</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
+          </div>
           <div class="status-row">
             <img src="https://img.shields.io/github/last-commit/Steve27M/cfb-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="cfb-analytics last commit" loading="lazy" />
-            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+            <span class="dates">On GitHub since 2026-07-01</span>
           </div>
-          <p class="decision"><b>Hardest decision</b>Conference realignment quietly breaks naive team dimensions — SCD2 tracks who played where, when. Why team history is a schema problem, not a lookup table →</p>
+          <p class="decision"><b>Hardest decision</b>Conference realignment quietly breaks naive team dimensions; SCD2 tracks who played where, when. Why team history is a schema problem, not a lookup table →</p>
         </div>
         <div class="proj-toggle">+</div>
       </div>
@@ -403,35 +546,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
           <a href="https://github.com/Steve27M/cfb-analytics#readme" target="_blank" rel="noopener">Case study ↗</a>
         </div>
       </div>
-      <div><p class="side-note">Benchmark target: the betting market. Preseason predictions committed in public — checkable after the fact.</p></div>
-    </div></div></div>
-  </div>
-
-  <div class="proj rv" data-proj>
-    <div class="proj-head">
-      <div class="proj-top">
-        <div class="proj-id">SYS-03</div>
-        <div class="proj-title">
-          <h3>Live Flight Telemetry Pipeline</h3>
-          <p class="plain">Ingests real, live aircraft positions from the OpenSky Network — a source that moves, rate-limits you, and never stops — and warehouses them into a queryable star schema with a live air-traffic map.</p>
-          <p class="techline">OpenSky API (ADS-B) → incremental polling → DuckDB → dbt (Kimball) → map</p>
-          <div class="status-row">
-            <img src="https://img.shields.io/github/last-commit/Steve27M/opensky-flight-pipeline?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="opensky-flight-pipeline last commit" loading="lazy" />
-            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
-          </div>
-          <p class="decision"><b>Hardest decision</b>The source is live and hostile to polling — why the landing zone is append-only, retries are deliberately boring, and losing a poll is designed to be a non-event →</p>
-        </div>
-        <div class="proj-toggle">+</div>
-      </div>
-    </div>
-    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
-      <div>
-        <p>Demonstrates production-grade <strong>API ingestion</strong> — incremental polling, rate-limit &amp; retry handling, immutable landing with lineage — on a real, moving source rather than a static CSV.</p>
-        <div class="proj-links">
-          <a class="primary" href="https://github.com/Steve27M/opensky-flight-pipeline#readme" target="_blank" rel="noopener">Code &amp; dashboard ↗</a>
-        </div>
-      </div>
-      <div><p class="side-note">Geospatial + time-series on genuinely live telemetry — the same ingestion problems sensor fleets create.</p></div>
+      <div><p class="side-note">Benchmark target: the betting market. Preseason predictions committed in public, checkable after the fact.</p></div>
     </div></div></div>
   </div>
 
@@ -440,28 +555,55 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="proj-top">
         <div class="proj-id">SYS-04</div>
         <div class="proj-title">
-          <h3>Manufacturing PDF → Warehouse</h3>
-          <p class="plain">Turns a plant's daily PDF production reports — a format built for humans, not machines — into a tested analytics warehouse and interactive dashboard.</p>
-          <p class="techline">PDF (pdfplumber) → Dagster → dbt medallion → DuckDB (Kimball) → dashboard</p>
-          <div class="status-row">
-            <img src="https://img.shields.io/github/last-commit/Steve27M/manufacturing-pdf-etl?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="manufacturing-pdf-etl last commit" loading="lazy" />
-            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates</span></span>
+          <h3>Live Flight Telemetry Pipeline</h3>
+          <p class="plain">Ingests real, live aircraft positions from the OpenSky Network (a source that moves, rate-limits you, and never stops) and warehouses them into a queryable star schema with a live air-traffic map.</p>
+          <p class="techline">OpenSky API (ADS-B) → incremental polling → DuckDB → dbt (Kimball) → map</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-004 · live ADS-B → air-traffic map <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: OpenSky ADS-B to incremental polling to DuckDB to dbt star to live map">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">OpenSky</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">live ADS-B</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">POLL</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">incremental</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">rate-limited</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">STORE</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">append-only</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">MODEL</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dbt · Kimball</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">star schema</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">SERVE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">live map</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">geospatial</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
           </div>
-          <p class="decision"><b>Hardest decision</b>Bad rows don't fail the pipeline and don't vanish — they're quarantined with lineage. Why silent drops are the real bug, and failure-on-anomaly is a design smell →</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/opensky-flight-pipeline?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="opensky-flight-pipeline last commit" loading="lazy" />
+            <span class="dates">On GitHub since 2026-06-21</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>The source is live and hostile to polling; why the landing zone is append-only, retries are deliberately boring, and losing a poll is designed to be a non-event →</p>
         </div>
         <div class="proj-toggle">+</div>
       </div>
     </div>
     <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
       <div>
-        <p>Append-only lineage, a <strong>quarantine for bad rows</strong>, source-freshness &amp; relationship tests, and architecture <strong>"fitness functions."</strong> All data is synthetic and generated from scratch — nothing derived from employer work.</p>
+        <p>Demonstrates production-grade <strong>API ingestion</strong> (incremental polling, rate-limit &amp; retry handling, immutable landing with lineage) on a real, moving source rather than a static CSV.</p>
         <div class="proj-links">
-          <a class="primary" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener">Live dashboard ↗</a>
-          <a href="https://github.com/Steve27M/manufacturing-pdf-etl" target="_blank" rel="noopener">Code ↗</a>
-          <a href="https://github.com/Steve27M/manufacturing-pdf-etl#readme" target="_blank" rel="noopener">Case study ↗</a>
+          <a class="primary" href="https://github.com/Steve27M/opensky-flight-pipeline#readme" target="_blank" rel="noopener">Code &amp; dashboard ↗</a>
         </div>
       </div>
-      <div><p class="side-note">The same shape as real plant reporting problems — solved entirely in public with synthetic data.</p></div>
+      <div><p class="side-note">Geospatial + time-series on genuinely live telemetry: the same ingestion problems sensor fleets create.</p></div>
     </div></div></div>
   </div>
 
@@ -470,51 +612,57 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="proj-top">
         <div class="proj-id">SYS-05</div>
         <div class="proj-title">
-          <h3>HelioSentinel — Space-Weather Pipeline with an AI Narration Layer</h3>
-          <p class="plain">Continuously ingests real solar-wind, proton-flux, event, and satellite data, flags dangerous conditions with deterministic rules, and uses a local language model to turn each anomaly into a plain-English incident report — graded against NASA's official event log.</p>
-          <p class="techline">NOAA · NASA · CelesTrak APIs → DuckDB → deterministic detector → local LLM (schema-validated) → eval harness / CI gate → FastAPI 3D console</p>
-          <div class="status-row">
-            <img src="https://img.shields.io/github/last-commit/Steve27M/heliosentinel?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="heliosentinel last commit" loading="lazy" onerror="this.remove()" />
-            <span class="dates">Built &lt;mon yyyy&gt; <span class="redline">REDLINE dates · links live after HelioSentinel is pushed</span></span>
+          <h3>Manufacturing PDF → Warehouse</h3>
+          <p class="plain">Turns a plant's daily PDF production reports (a format built for humans, not machines) into a tested analytics warehouse and interactive dashboard.</p>
+          <p class="techline">PDF (pdfplumber) → Dagster → dbt medallion → DuckDB (Kimball) → dashboard</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-005 · PDF reports → tested warehouse <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: PDF reports to Dagster orchestration to dbt medallion to DuckDB warehouse to dashboard">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">PDF reports</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">pdfplumber</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">ORCHESTRATE</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">Dagster</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">scheduled</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">TRANSFORM</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dbt medallion</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">quarantine</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">WAREHOUSE</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">Kimball star</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">SERVE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dashboard</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">fitness fns</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
           </div>
-          <p class="decision"><b>Hardest decision</b>The model never decides <em>whether</em> something happened — deterministic rules do; the LLM only describes and structures <em>what</em> happened. Why the model is kept out of the detection path →</p>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/manufacturing-pdf-etl?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="manufacturing-pdf-etl last commit" loading="lazy" />
+            <span class="dates">On GitHub since 2026-06-21</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Bad rows don't fail the pipeline and don't vanish; they're quarantined with lineage. Why silent drops are the real bug, and failure-on-anomaly is a design smell →</p>
         </div>
         <div class="proj-toggle">+</div>
       </div>
     </div>
     <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
       <div>
-        <p>Source connectors sit behind one plugin interface with strict rate-policy compliance; the deterministic detector is a set of reusable <strong>DuckDB window queries</strong> (same SQL for backtest and live). The local LLM's output is <strong>schema-validated with retry-on-error and failure quarantine</strong> — malformed output never reaches the store. A hand-labeled golden set plus DONKI correlation gate every prompt change in CI; one documented iteration moved severity accuracy from <strong>37% to 83%</strong>.</p>
-        <p>The operator console is a live <strong>3D geospace situation display</strong>: Earth's magnetopause compresses from real solar-wind pressure and satellites are SGP4-propagated from real orbital elements — with every panel labeled <strong>LIVE</strong> (real physics / telemetry) or <strong>ILLUSTRATIVE</strong> (decorative).</p>
+        <p>Append-only lineage, a <strong>quarantine for bad rows</strong>, source-freshness &amp; relationship tests, and architecture <strong>"fitness functions."</strong> All data is synthetic and generated from scratch, with nothing derived from employer work.</p>
         <div class="proj-links">
-          <a class="primary" href="https://steve27m.github.io/heliosentinel/" target="_blank" rel="noopener">Showcase ↗</a>
-          <a href="https://github.com/Steve27M/heliosentinel" target="_blank" rel="noopener">Code ↗</a>
-          <a href="https://github.com/Steve27M/heliosentinel#readme" target="_blank" rel="noopener">Decision log ↗</a>
+          <a class="primary" href="https://steve27m.github.io/manufacturing-pdf-etl/dashboard/" target="_blank" rel="noopener">Live dashboard ↗</a>
+          <a href="https://github.com/Steve27M/manufacturing-pdf-etl" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/manufacturing-pdf-etl#readme" target="_blank" rel="noopener">Case study ↗</a>
         </div>
       </div>
-      <div class="sig-wrap">
-        <div class="cyano">
-          <div class="panel-label">DWG AI-001 · detect / narrate split</div>
-          <svg style="width:100%;height:auto;display:block;position:relative;z-index:1" viewBox="0 0 400 176" role="img" aria-label="Blueprint: a deterministic detector feeds the LLM narrator, whose output passes a schema gate or is quarantined">
-            <text x="70" y="44" font-family="monospace" font-size="9.5" fill="#A8C8F8" text-anchor="middle">decides IF</text>
-            <text x="220" y="44" font-family="monospace" font-size="9.5" fill="#D9925F" text-anchor="middle">describes WHAT</text>
-            <text x="350" y="44" font-family="monospace" font-size="9.5" fill="#7BE3A8" text-anchor="middle">gate / quarantine</text>
-            <rect x="18" y="66" width="104" height="48" fill="none" stroke="#5FA0EC" stroke-width="1.2"/>
-            <text x="70" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">DETECTOR</text>
-            <text x="70" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">rules · SQL</text>
-            <path d="M122,90 H168" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
-            <circle r="3.2" fill="#5FA0EC"><animateMotion dur="2.6s" repeatCount="indefinite" path="M122,90 H168"/></circle>
-            <rect x="168" y="66" width="104" height="48" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
-            <text x="220" y="88" font-family="monospace" font-size="11" fill="#DCE9FC" text-anchor="middle" font-weight="600">LLM NARRATE</text>
-            <text x="220" y="103" font-family="monospace" font-size="9" fill="#84A6DC" text-anchor="middle">local · describes</text>
-            <path d="M272,90 H318" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
-            <circle r="3.2" fill="#EFC75E"><animateMotion dur="2.6s" repeatCount="indefinite" path="M272,90 H318"/></circle>
-            <rect x="318" y="66" width="64" height="48" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
-            <text x="350" y="86" font-family="monospace" font-size="10" fill="#7BE3A8" text-anchor="middle" font-weight="600">SCHEMA</text>
-            <text x="350" y="102" font-family="monospace" font-size="12" fill="#7BE3A8" text-anchor="middle">✓</text>
-          </svg>
-        </div>
-      </div>
+      <div><p class="side-note">The same shape as real plant reporting problems, solved entirely in public with synthetic data.</p></div>
     </div></div></div>
   </div>
 </section>
@@ -525,7 +673,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="building">
     <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
     <div class="row"><span class="tag">FACTORYSTREAM</span><span class="desc"><b>Streaming lakehouse on AWS</b>, Terraform-provisioned end to end.</span><span class="eta">target: &lt;Qx 2026&gt; <span class="redline">REDLINE</span></span></div>
-    <div class="row"><span class="tag">AWS CERT</span><span class="desc">AWS certification — listed here until earned, on the About section after.</span><span class="eta">in progress</span></div>
+    <div class="row"><span class="tag">AWS CERT</span><span class="desc">AWS certification, listed here until earned, on the About section after.</span><span class="eta">in progress</span></div>
   </div>
 </section>
 
@@ -555,7 +703,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     <div>
       <p>I'm a data engineer who likes the unglamorous parts: getting data out of awkward formats, making transformations <strong>testable</strong>, and building the warehouse layer that analytics and ML actually depend on.</p>
       <p>I care about systems that are <strong>reproducible, well-tested, and clear enough that the next person can trust and extend them.</strong></p>
-      <div class="cred">Credential — MIT Applied Data Science Program: <a href="https://steve27m.github.io/mit-applied-data-science/" target="_blank" rel="noopener">31-project coursework portfolio →</a></div>
+      <div class="cred">Credential: MIT Applied Data Science Program: <a href="https://steve27m.github.io/mit-applied-data-science/" target="_blank" rel="noopener">31-project coursework portfolio →</a></div>
       <!-- AWS certification line: add when earned, not before. -->
     </div>
     <div class="cyano">
@@ -585,7 +733,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
         <div class="tb-head">TITLE BLOCK</div>
         <div class="row"><span>PROJECT</span><b>steve27m.github.io</b></div>
         <div class="row"><span>CONTACT</span><b>stevemarn27@gmail.com</b></div>
-        <div class="row"><span>REV DATE</span><b>2026-07-10</b></div>
+        <div class="row"><span>REV DATE</span><b>2026-07-12</b></div>
         <div class="row"><span>NOTES</span><b>static · no trackers</b></div>
       </div>
     </div>
@@ -624,7 +772,7 @@ document.querySelectorAll('[data-proj]').forEach(c=>{
   head.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('a')){e.preventDefault();c.classList.toggle('open');}});
 });
 
-/* star schema — cyanotype linework */
+/* star schema: cyanotype linework */
 (function(){
   const svg=document.getElementById('starsvg'); if(!svg)return;
   const cx=160, cy=120;
