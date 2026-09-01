@@ -243,7 +243,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="tb-head">TITLE BLOCK</div>
       <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
       <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
-      <div class="row"><span>REV</span><b>H · 2026-09-01</b></div>
+      <div class="row"><span>REV</span><b>I · 2026-09-01</b></div>
       <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
       <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
     </div>
@@ -414,6 +414,95 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="proj-top">
         <div class="proj-id">SYS-02</div>
         <div class="proj-title">
+          <h3>FactoryStream: Streaming Lakehouse with Provable Completeness</h3>
+          <p class="plain">Deliberately breaks its own data &mdash; sending events late, twice, out of order, with wrong clocks and malformed payloads &mdash; then proves the pipeline handled every single one, by reconciling the warehouse against a record the generator wrote down before the pipeline ever saw it.</p>
+          <p class="techline">adversarial generator → Redpanda (Kafka API) → S3 parquet → Glue · Athena → dbt Kimball star → exact reconciliation</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-007 · disorder injected → reconciled exactly <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: adversarial generator to broker to lake to star schema to exact reconciliation">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">GENERATE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">adversarial</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">+ manifest</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">BROKER</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">Redpanda</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">6 partitions</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">LAND</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">S3 parquet</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">commit after write</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">MODEL</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">dbt · Kimball</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">Athena</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">RECONCILE</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">523 / 523</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">exact, not close</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/factorystream?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="factorystream last commit" loading="lazy" />
+            <img src="https://img.shields.io/github/actions/workflow/status/Steve27M/factorystream/ci.yml?label=CI&labelColor=EFF4FC&style=flat-square" alt="CI status" loading="lazy" onerror="this.remove()" />
+            <span class="dates">On GitHub since 2026-09-01</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Building a generator whose whole job is to corrupt its own output. Every pipeline claims it handles late and duplicate data; almost none can show you the arithmetic. Here's why the disorder had to be manufactured →</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Real pipelines <em>assert</em> correctness. Very few can prove it, because ground truth is unknowable &mdash; you cannot diff against the world. A synthetic generator knows exactly what it emitted, so it writes a signed per-window <strong>manifest</strong> that never travels the pipeline, and the gold layer must match it exactly.</p>
+        <p><strong>523 of 523 windows reconcile</strong>, and the arithmetic closes with nothing unexplained: 4,155 manifest events, minus 4 corrupt quarantined, gives the 4,151 deduped rows Athena reports; add back the 92 duplicate copies that were injected on purpose and you get raw bronze exactly.</p>
+        <p>The consumer commits offsets <strong>only after a durable write</strong>, and a kill-test proves it &mdash; crash it mid-batch, restart, and assert both no loss and no consumer-introduced duplicates. That test runs on every push against a real broker.</p>
+        <p>Account-level cost guardrails live here and cover both manufacturing projects: budgets, a Cost and Usage Report, and a shared Athena workgroup with a per-query scan cap.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/factorystream/status/" target="_blank" rel="noopener">Completeness ledger ↗</a>
+          <a href="https://github.com/Steve27M/factorystream" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/factorystream/blob/main/evidence/2026-08-19-first-reconciliation.md" target="_blank" rel="noopener">Reconciliation evidence ↗</a>
+        </div>
+      </div>
+      <div class="sig-wrap">
+        <div class="cyano">
+          <div class="panel-label">DWG QA-007 · the arithmetic closes</div>
+          <svg style="width:100%;height:auto;display:block;position:relative;z-index:1" viewBox="0 0 400 180" role="img" aria-label="Blueprint diagram: manifest events minus corrupt equals deduped bronze, plus injected duplicates equals raw bronze">
+            <rect x="20" y="14" width="150" height="38" fill="none" stroke="#5FA0EC" stroke-width="1.2"/>
+            <text x="32" y="32" font-family="monospace" font-size="10.5" fill="#DCE9FC" font-weight="600">manifest</text>
+            <text x="32" y="46" font-family="monospace" font-size="9.5" fill="#84A6DC">4,155 events</text>
+            <text x="186" y="38" font-family="monospace" font-size="12" fill="#D9925F">&#8722; 4</text>
+            <text x="214" y="38" font-family="monospace" font-size="9" fill="#84A6DC">corrupt</text>
+            <path d="M95,52 V70" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <rect x="20" y="70" width="150" height="38" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+            <text x="32" y="88" font-family="monospace" font-size="10.5" fill="#DCE9FC" font-weight="600">deduped bronze</text>
+            <text x="32" y="102" font-family="monospace" font-size="9.5" fill="#84A6DC">4,151 ✓ Athena</text>
+            <text x="186" y="94" font-family="monospace" font-size="12" fill="#D9925F">+ 92</text>
+            <text x="222" y="94" font-family="monospace" font-size="9" fill="#84A6DC">injected dups</text>
+            <path d="M95,108 V126" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <rect x="20" y="126" width="150" height="38" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+            <text x="32" y="144" font-family="monospace" font-size="10.5" fill="#DCE9FC" font-weight="600">raw bronze</text>
+            <text x="32" y="158" font-family="monospace" font-size="9.5" fill="#84A6DC">4,243 ✓ Athena</text>
+            <rect x="300" y="70" width="80" height="38" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+            <text x="340" y="88" font-family="monospace" font-size="9" fill="#7BE3A8" text-anchor="middle" font-weight="600">523/523</text>
+            <text x="340" y="102" font-family="monospace" font-size="12" fill="#7BE3A8" text-anchor="middle">✓</text>
+            <path d="M254,89 H300" stroke="rgba(168,200,248,.5)" stroke-width="1" stroke-dasharray="3 3"/>
+            <circle r="3.2" fill="#EFC75E"><animateMotion dur="2.6s" repeatCount="indefinite" path="M254,89 H300"/></circle>
+          </svg>
+        </div>
+      </div>
+    </div></div></div>
+  </div>
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-03</div>
+        <div class="proj-title">
           <h3>HelioSentinel: Space-Weather Pipeline with an AI Narration Layer</h3>
           <p class="plain">Continuously ingests real solar-wind, proton-flux, event, and satellite data, flags dangerous conditions with deterministic rules, and uses a local language model to turn each anomaly into a plain-English incident report, graded against NASA's official event log.</p>
           <p class="techline">NOAA · NASA · CelesTrak APIs → DuckDB → deterministic detector → local LLM (schema-validated) → eval harness / CI gate → FastAPI 3D console</p>
@@ -495,7 +584,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-03</div>
+        <div class="proj-id">SYS-04</div>
         <div class="proj-title">
           <h3>MLB Analytics Pipeline</h3>
           <p class="plain">Takes 2.18M raw baseball pitch records and turns them into 13 statistical models and a live dashboard, rebuilt from scratch every night, automatically, with the build refusing to ship if any check fails.</p>
@@ -578,7 +667,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-04</div>
+        <div class="proj-id">SYS-05</div>
         <div class="proj-title">
           <h3>College-Football Analytics Pipeline</h3>
           <p class="plain">Pulls college-football data from a public API, warehouses it with full history, and forecasts the 2026 season before it starts, with a win-probability model benchmarked against the betting market.</p>
@@ -637,7 +726,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-05</div>
+        <div class="proj-id">SYS-06</div>
         <div class="proj-title">
           <h3>Live Flight Telemetry Pipeline</h3>
           <p class="plain">Ingests real, live aircraft positions from the OpenSky Network (a source that moves, rate-limits you, and never stops) and warehouses them into a queryable star schema with a live air-traffic map.</p>
@@ -694,7 +783,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-06</div>
+        <div class="proj-id">SYS-07</div>
         <div class="proj-title">
           <h3>Manufacturing PDF → Warehouse</h3>
           <p class="plain">Turns a plant's daily PDF production reports (a format built for humans, not machines) into a tested analytics warehouse and interactive dashboard.</p>
