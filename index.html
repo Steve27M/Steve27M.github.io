@@ -243,7 +243,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="tb-head">TITLE BLOCK</div>
       <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
       <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
-      <div class="row"><span>REV</span><b>J · 2026-09-01</b></div>
+      <div class="row"><span>REV</span><b>K · 2026-09-22</b></div>
       <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
       <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
     </div>
@@ -324,6 +324,69 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     <div class="proj-head">
       <div class="proj-top">
         <div class="proj-id">SYS-01</div>
+        <div class="proj-title">
+          <h3>Digital Assets and Customer Insights Advanced Analytics</h3>
+          <p class="plain">A question-first analytics catalog for an institutional digital-asset business &mdash; fund growth, stablecoin settlement timing, customer retention and desk capacity &mdash; built only on data whose terms were read and recorded before a line of ingest code was written. Most of the sources it wanted were refused, and every refusal is published alongside the work.</p>
+          <p class="techline">SEC EDGAR XBRL · AWS Public Blockchain Data → policy-gated client → DuckDB medallion → dbt star (96 tests) → Python models (survival · queueing · text) → Quarto site</p>
+          <div class="cyano flowstrip" aria-hidden="true">
+            <div class="panel-label">DWG FL-008 · terms review → warehouse → models → published site <span class="ref">SCHEMATIC</span></div>
+            <div class="pipe-body">
+              <svg class="pipe-svg" viewBox="0 0 940 120" role="img" aria-label="Pipeline schematic: public sources through a terms gate to a DuckDB warehouse, then models, then a published site">
+                <path d="M98,65 H842" stroke="rgba(168,200,248,.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+                <rect x="24"  y="42" width="148" height="46" fill="none" stroke="#A8C8F8" stroke-width="1.2"/>
+                <text x="34"  y="34" font-family="monospace" font-size="9.5" fill="#A8C8F8">SOURCE</text>
+                <text x="34"  y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">EDGAR · chain</text>
+                <text x="34"  y="106" font-family="monospace" font-size="9" fill="#84A6DC">public only</text>
+                <rect x="210" y="42" width="148" height="46" fill="none" stroke="#D9925F" stroke-width="1.2"/>
+                <text x="220" y="34" font-family="monospace" font-size="9.5" fill="#D9925F">TERMS GATE</text>
+                <text x="220" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">27 verdicts</text>
+                <text x="220" y="106" font-family="monospace" font-size="9" fill="#84A6DC">most refused</text>
+                <rect x="396" y="42" width="148" height="46" fill="none" stroke="#C9D6E8" stroke-width="1.2"/>
+                <text x="406" y="34" font-family="monospace" font-size="9.5" fill="#C9D6E8">WAREHOUSE</text>
+                <text x="406" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">DuckDB · dbt</text>
+                <text x="406" y="106" font-family="monospace" font-size="9" fill="#84A6DC">96 data tests</text>
+                <rect x="582" y="42" width="148" height="46" fill="none" stroke="#EFC75E" stroke-width="1.2"/>
+                <text x="592" y="34" font-family="monospace" font-size="9.5" fill="#EFC75E">MODELS</text>
+                <text x="592" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">KM · Cox · M/M/c</text>
+                <text x="592" y="106" font-family="monospace" font-size="9" fill="#84A6DC">sealed holdout</text>
+                <rect x="768" y="42" width="148" height="46" fill="none" stroke="#7BE3A8" stroke-width="1.4"/>
+                <text x="778" y="34" font-family="monospace" font-size="9.5" fill="#7BE3A8">PUBLISH</text>
+                <text x="778" y="70" font-family="monospace" font-size="12" fill="#DCE9FC" font-weight="600">gated site</text>
+                <text x="778" y="106" font-family="monospace" font-size="9" fill="#84A6DC">no 3rd-party</text>
+                <circle r="4.5" fill="#EFC75E"><animateMotion dur="5s" repeatCount="indefinite" path="M98,65 H842"/></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="status-row">
+            <img src="https://img.shields.io/github/last-commit/Steve27M/digital-assets-analytics?label=updated&labelColor=EFF4FC&color=1E4FBC&style=flat-square" alt="digital-assets-analytics last commit" loading="lazy" />
+            <span class="dates">On GitHub since 2026-09-22</span>
+          </div>
+          <p class="decision"><b>Hardest decision</b>Reading the terms first meant losing most of the data the project was designed around &mdash; every ETF issuer's daily holdings file included. Rebuilding it on what the terms actually permit, and publishing all 27 verdicts including the refusals &rarr;</p>
+        </div>
+        <div class="proj-toggle">+</div>
+      </div>
+    </div>
+    <div class="proj-body"><div class="proj-inner"><div class="proj-grid">
+      <div>
+        <p>Fund growth is decomposed with an accounting identity rather than a model, and only the <strong>119 of 233 fund-quarters that reconcile</strong> to reported net assets are published; the remaining 114 are withheld rather than estimated.</p>
+        <p>Across every USDC, USDT and dollar-stablecoin transfer on Ethereum, <strong>33.1% of USDC value moved while Fedwire and ACH settlement were both closed</strong> (95% interval 19&ndash;52%, from resampling whole days), against 38% of clock hours &mdash; settlement barely notices the banking calendar. Unusual hours are flagged with a robust score and a one-sentence reason, never an allegation, and no address of any party is retained.</p>
+        <p>Customer and service questions run on a <strong>fully synthetic custody book</strong>, generated from published assumptions and labeled synthetic in the header of every page that shows it. Because the effects are planted, the models are scored on whether they recover them: <strong>8 of 8 hazard ratios inside their intervals</strong>, a sealed-holdout ranking score of 0.68 against 0.61 for segment alone, and a withdrawal-desk arrival model that recovered a planted 2.0&times; stress response to within 0.01 &mdash; after a first version that was biased, and said so.</p>
+        <p>One network client enforces a host allowlist, pacing, daily budgets and a circuit breaker; a test fails the build if any other module imports an HTTP library. Raw third-party data is never committed, the published site loads <strong>nothing from any third party</strong>, and a pre-publication audit reads every blob in the git history before a push.</p>
+        <div class="proj-links">
+          <a class="primary" href="https://steve27m.github.io/digital-assets-analytics/" target="_blank" rel="noopener">Live site ↗</a>
+          <a href="https://github.com/Steve27M/digital-assets-analytics" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://steve27m.github.io/digital-assets-analytics/sources.html" target="_blank" rel="noopener">Every verdict ↗</a>
+        </div>
+      </div>
+      <div><p class="side-note">The compliance work is the portfolio piece: in a regulated setting, what you decline to use is as much of the answer as what you ship.</p></div>
+    </div></div></div>
+  </div>
+
+
+  <div class="proj rv" data-proj>
+    <div class="proj-head">
+      <div class="proj-top">
+        <div class="proj-id">SYS-02</div>
         <div class="proj-title">
           <h3>WearWatch: Predictive Maintenance from the Machine Up</h3>
           <p class="plain">Simulates eight CNC machines with real wear physics, publishes their sensor readings the way a factory actually does, trains a model to predict tool failure an hour ahead, deploys it to AWS &mdash; then pulls the whole thing back out of the cloud to prove the cloud was a choice rather than a dependency.</p>
@@ -412,7 +475,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-02</div>
+        <div class="proj-id">SYS-03</div>
         <div class="proj-title">
           <h3>FactoryStream: Streaming Lakehouse with Provable Completeness</h3>
           <p class="plain">Deliberately breaks its own data &mdash; sending events late, twice, out of order, with wrong clocks and malformed payloads &mdash; then proves the pipeline handled every single one, by reconciling the warehouse against a record the generator wrote down before the pipeline ever saw it.</p>
@@ -501,7 +564,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-03</div>
+        <div class="proj-id">SYS-04</div>
         <div class="proj-title">
           <h3>HelioSentinel: Space-Weather Pipeline with an AI Narration Layer</h3>
           <p class="plain">Continuously ingests real solar-wind, proton-flux, event, and satellite data, flags dangerous conditions with deterministic rules, and uses a local language model to turn each anomaly into a plain-English incident report, graded against NASA's official event log.</p>
@@ -584,7 +647,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-04</div>
+        <div class="proj-id">SYS-05</div>
         <div class="proj-title">
           <h3>MLB Analytics Pipeline</h3>
           <p class="plain">Takes 2.18M raw baseball pitch records and turns them into 13 statistical models and a live dashboard, rebuilt from scratch every night, automatically, with the build refusing to ship if any check fails.</p>
@@ -667,7 +730,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-05</div>
+        <div class="proj-id">SYS-06</div>
         <div class="proj-title">
           <h3>College-Football Analytics Pipeline</h3>
           <p class="plain">Pulls college-football data from a public API, warehouses it with full history, and forecasts the 2026 season before it starts, with a win-probability model benchmarked against the betting market.</p>
@@ -726,7 +789,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-06</div>
+        <div class="proj-id">SYS-07</div>
         <div class="proj-title">
           <h3>Live Flight Telemetry Pipeline</h3>
           <p class="plain">Ingests real, live aircraft positions from the OpenSky Network (a source that moves, rate-limits you, and never stops) and warehouses them into a queryable star schema with a live air-traffic map.</p>
@@ -783,7 +846,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <div class="proj rv" data-proj>
     <div class="proj-head">
       <div class="proj-top">
-        <div class="proj-id">SYS-07</div>
+        <div class="proj-id">SYS-08</div>
         <div class="proj-title">
           <h3>Manufacturing PDF → Warehouse</h3>
           <p class="plain">Turns a plant's daily PDF production reports (a format built for humans, not machines) into a tested analytics warehouse and interactive dashboard.</p>
@@ -844,7 +907,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
 <section id="building" class="wrap rv">
   <div class="section-head"><span class="num">SHT 03</span><h2>Currently building</h2><span class="meta">trajectory</span></div>
   <div class="building">
-    <div class="row"><span class="tag">TRANSPORTIQ</span><span class="desc"><b>Real-time multimodal map + text-to-SQL</b> over a live transit warehouse.</span><span class="eta">target: 2026</span></div>
+    <div class="row"><span class="tag">BANKING PLATFORM</span><span class="desc"><b>Banking platform data engineering and management</b> &mdash; core platform data models, pipelines and controls.</span><span class="eta">target: 2026</span></div>
   </div>
 </section>
 
@@ -907,7 +970,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
         <div class="tb-head">TITLE BLOCK</div>
         <div class="row"><span>PROJECT</span><b>steve27m.github.io</b></div>
         <div class="row"><span>CONTACT</span><b>stevemarn27@gmail.com</b></div>
-        <div class="row"><span>REV DATE</span><b>2026-09-01</b></div>
+        <div class="row"><span>REV DATE</span><b>2026-09-22</b></div>
         <div class="row"><span>NOTES</span><b>static · no trackers</b></div>
       </div>
     </div>
