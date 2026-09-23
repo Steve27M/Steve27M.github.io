@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Stephen Marn, Senior Data Engineer</title>
-<meta name="description" content="Stephen Marn, Senior Data Engineer. I don't just build pipelines. I operate them, in public, and you can watch. Live dashboards, nightly CI, verifiable claims." />
-<meta property="og:title" content="Stephen Marn, Senior Data Engineer" />
+<title>Stephen Marn, Data Analyst / Engineer</title>
+<meta name="description" content="Stephen Marn, Data Analyst / Engineer. I don't just build pipelines. I operate them, in public, and you can watch. Live dashboards, nightly CI, verifiable claims." />
+<meta property="og:title" content="Stephen Marn, Data Analyst / Engineer" />
 <meta property="og:description" content="Systems I run in public: tested medallion warehouses, parity-gated models, live dashboards." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://steve27m.github.io/" />
@@ -151,6 +151,7 @@ section{padding:74px 0}
 .proj-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;padding-top:22px}
 .proj-grid p{color:var(--ink-2);font-size:14.5px;line-height:1.68;margin-bottom:12px}
 .proj-grid p strong{color:var(--ink)}
+.proj-grid p code{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:#EFF4FC;padding:1px 5px}
 .proj-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .proj-links a{font-size:13px;font-weight:500;padding:9px 14px;border:1px solid var(--hairline);transition:all .15s;color:var(--ink-2)}
 .proj-links a:hover{border-color:var(--cobalt);color:var(--cobalt);transform:translateY(-1px)}
@@ -178,6 +179,11 @@ section{padding:74px 0}
 .cap li{font-size:12.5px;color:var(--ink-2);border:1px solid var(--hairline);padding:5px 10px;transition:all .15s;cursor:default;background:var(--paper)}
 .cap li:hover{border-color:var(--cobalt);color:var(--cobalt)}
 @media(max-width:760px){.cap-grid{grid-template-columns:1fr}}
+.section-sub{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:30px 0 14px}
+.section-sub h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.section-sub span{font-size:13px;color:var(--faint)}
+.cap.work{border-style:dashed;box-shadow:none}
+.cap.work h3{color:var(--ink-2)}
 
 /* about */
 .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:start}
@@ -231,7 +237,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     <div style="flex:1">
       <div class="eyebrow li d1">Portfolio · systems run in public</div>
       <p class="name li d2">Stephen Marn</p>
-      <h1 class="li d2">Senior Data Engineer</h1>
+      <h1 class="li d2">Data Analyst / Engineer</h1>
       <p class="tagline li d3">I turn operational complexity into data systems that anyone can trust and act on.</p>
       <!-- status line: approved values -->
       <div class="status-line li d3">
@@ -243,7 +249,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
       <div class="tb-head">TITLE BLOCK</div>
       <div class="row"><span>DWG NO.</span><b>PORTFOLIO-2026</b></div>
       <div class="row"><span>DRAWN BY</span><b>S. MARN</b></div>
-      <div class="row"><span>REV</span><b>K · 2026-09-22</b></div>
+      <div class="row"><span>REV</span><b>L · 2026-09-23</b></div>
       <div class="row"><span>SCALE</span><b>NTS · verify all claims</b></div>
       <div class="row"><span>SHEET</span><b>1 OF 1</b></div>
     </div>
@@ -436,9 +442,11 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
         <p>The first label horizon was wrong: <em>failure within 24 hours</em> made 86% of rows positive. Measuring the fleet showed mean time between failures is <strong>3.2 hours</strong> &mdash; the horizon was seven times wider than the phenomenon.</p>
         <p>Drift is demonstrated with a <strong>declared cause</strong>: the fleet's wear <em>rate</em> is multiplied mid-stream, so scores move without a single published signal being edited. PSI hits 2.24 and the CloudWatch alarm fires, with AWS's own timestamps kept as evidence.</p>
         <p>Total AWS spend, verified against Cost Explorer across eight months: <strong>$0.00</strong> &mdash; because nothing in the stack bills for merely existing.</p>
+        <p>All of the project's AWS infrastructure is <strong>Terraform</strong>, nothing created by console: <strong>39 resources in 11 files</strong> covering the IoT device, its certificate and the Sparkplug topic rule, the SQS buffer and dead-letter queue, both Lambdas, the encrypted S3 lake, Glue tables, an Athena workgroup, the SageMaker model registry, ECR, and the CloudWatch drift alarms. The account-wide budgets and billing report it runs under are Terraform too, declared once in FactoryStream (SYS-02) so the two projects never fight over them. Terraform also exposed two things. An apply failed creating Firehose because the account had no Kinesis access, so SQS took over the buffering. The teardown <code>terraform destroy</code> stopped at the model registry, which still held model versions that training had registered at runtime and Terraform had no record of; they were deleted through the API, and the lesson is written up as a decision record. Teardown is verified against the AWS APIs, not Terraform state, because anything created outside Terraform never appears in its state.</p>
         <div class="proj-links">
           <a class="primary" href="https://steve27m.github.io/wearwatch/status/" target="_blank" rel="noopener">Evidence ledger ↗</a>
           <a href="https://github.com/Steve27M/wearwatch" target="_blank" rel="noopener">Code ↗</a>
+          <a href="https://github.com/Steve27M/wearwatch/tree/main/terraform" target="_blank" rel="noopener">Terraform ↗</a>
           <a href="https://github.com/Steve27M/wearwatch/blob/main/docs/decisions.md" target="_blank" rel="noopener">70 decisions ↗</a>
         </div>
       </div>
@@ -525,10 +533,13 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
         <p><strong>523 of 523 windows reconcile</strong>, and the arithmetic closes with nothing unexplained: 4,155 manifest events, minus 4 corrupt quarantined, gives the 4,151 deduped rows Athena reports; add back the 92 duplicate copies that were injected on purpose and you get raw bronze exactly.</p>
         <p>The consumer commits offsets <strong>only after a durable write</strong>, and a kill-test proves it &mdash; crash it mid-batch, restart, and assert both no loss and no consumer-introduced duplicates. That test runs on every push against a real broker.</p>
         <p>Account-level cost guardrails live here and cover both manufacturing projects: budgets, a Cost and Usage Report, and a shared Athena workgroup with a per-query scan cap.</p>
+        <p>The AWS side is <strong>Terraform</strong>, split into two separately applied layers (<strong>26 resources in 12 files</strong>). The <em>account</em> layer holds those guardrails plus a GitHub OIDC deploy role, chosen over long-lived access keys. The <em>app</em> layer holds the versioned, encrypted S3 lake and the Glue tables. The split paid off in the acceptance run: the app layer was destroyed and rebuilt from nothing, the data was replayed and dbt re-run on Athena, and the result was <strong>523 of 523 again, in 183 seconds</strong>. The account layer stayed up deliberately, because destroying it would have left WearWatch without cost guardrails and a billing report can't be backfilled.</p>
         <div class="proj-links">
           <a class="primary" href="https://steve27m.github.io/factorystream/status/" target="_blank" rel="noopener">Completeness ledger ↗</a>
           <a href="https://github.com/Steve27M/factorystream" target="_blank" rel="noopener">Code ↗</a>
           <a href="https://github.com/Steve27M/factorystream/blob/main/evidence/2026-08-19-first-reconciliation.md" target="_blank" rel="noopener">Reconciliation evidence ↗</a>
+          <a href="https://github.com/Steve27M/factorystream/tree/main/infra/terraform" target="_blank" rel="noopener">Terraform ↗</a>
+          <a href="https://github.com/Steve27M/factorystream/blob/main/docs/stages/5.md" target="_blank" rel="noopener">Destroy &amp; rebuild ↗</a>
         </div>
       </div>
       <div class="sig-wrap">
@@ -919,7 +930,10 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
   <!-- Standing rule: a tool appears here only if a public project uses it: a system above, or the linked MIT ADSP portfolio. -->
   <div class="cap-grid">
     <div class="cap"><h3>Data Engineering</h3><ul>
-      <li>dbt</li><li>Dagster</li><li>DuckDB</li><li>Medallion architecture</li><li>Kimball modeling</li><li>SCD2</li><li>ELT / orchestration</li><li>Data quality / testing</li><li>GitHub Actions CI</li>
+      <li>dbt</li><li>Dagster</li><li>DuckDB</li><li>Medallion architecture</li><li>Kimball modeling</li><li>SCD2</li><li>ELT / orchestration</li><li>Data quality / testing</li><li>GitHub Actions CI</li><li>Grafana / Prometheus</li>
+    </ul></div>
+    <div class="cap"><h3>Cloud (AWS) &amp; Streaming</h3><ul>
+      <li>AWS IoT Core</li><li>SQS</li><li>Lambda</li><li>S3</li><li>Glue</li><li>Athena</li><li>SageMaker</li><li>ECR</li><li>CloudWatch</li><li>SNS</li><li>IAM / GitHub OIDC</li><li>AWS Budgets</li><li>Cost &amp; Usage Report</li><li>Cost Explorer</li><li>Terraform</li><li>MQTT / Sparkplug B</li><li>Kafka API (Redpanda)</li>
     </ul></div>
     <div class="cap"><h3>Languages &amp; Tools</h3><ul>
       <li>Python</li><li>SQL</li><li>R</li><li>tidyverse</li><li>tidymodels</li><li>pandas</li><li>Git &amp; GitHub</li><li>Quarto</li><li>Plotly</li><li>pdfplumber</li><li>FastAPI</li><li>Pydantic</li>
@@ -929,6 +943,13 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
     </ul></div>
     <div class="cap"><h3>AI / LLM</h3><ul>
       <li>Local LLM (Ollama)</li><li>Schema-validated generation</li><li>Prompt eval &amp; CI gating</li><li>Retry / quarantine on bad output</li><li>TensorFlow / Keras</li><li>PyTorch</li><li>Deep learning (CNNs, GNNs)</li>
+    </ul></div>
+  </div>
+  <!-- Work-experience tools: used in the day job, not in any public project above, so they carry no public evidence link. -->
+  <div class="section-sub"><h3>From work experience</h3><span>used in my day job, not in the public projects above</span></div>
+  <div class="cap-grid">
+    <div class="cap work"><h3>BI &amp; Orchestration</h3><ul>
+      <li>Power BI</li><li>Tableau</li><li>Apache Airflow</li>
     </ul></div>
   </div>
 </section>
@@ -970,7 +991,7 @@ footer{border-top:1.5px solid var(--ink);padding:40px 0 48px;margin-top:26px;bac
         <div class="tb-head">TITLE BLOCK</div>
         <div class="row"><span>PROJECT</span><b>steve27m.github.io</b></div>
         <div class="row"><span>CONTACT</span><b>stevemarn27@gmail.com</b></div>
-        <div class="row"><span>REV DATE</span><b>2026-09-22</b></div>
+        <div class="row"><span>REV DATE</span><b>2026-09-23</b></div>
         <div class="row"><span>NOTES</span><b>static · no trackers</b></div>
       </div>
     </div>
